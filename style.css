@@ -1,0 +1,122 @@
+/* --- Сброс стилей --- */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+/* --- Body --- */
+body {
+    background-color: #0a0a0a;
+    color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-bottom: 90px;
+}
+
+/* --- Header и Footer --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: transparent; /* ПРОЗРАЧНЫЙ ФОН */
+    position: sticky;
+    width: 100%;
+    z-index: 10;
+    top: 0;
+}
+#app-logo {
+    height: 30px; /* Размер логотипа */
+    width: auto;
+    object-fit: contain;
+}
+/* ⬆️ Стили для img#ai-icon УДАЛЕНЫ ⬆️ */
+
+
+footer {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 550px;
+    background-color: #1a1a1a;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    z-index: 99;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- Экраны --- */
+.main-screen { display: none; flex-grow: 1; flex-direction: column; align-items: center; padding: 20px; gap: 20px; width: 100%; }
+.main-screen.active { display: flex; }
+#dashboard-main {
+    padding-top: 0;
+}
+#workout-screen, #plans-screen, #progress-screen, #profile-screen, #premium-screen, #nexa-chat-screen { 
+    text-align: center; 
+    padding-top: 0; 
+}
+
+
+/* --- Мини-Таймер --- */
+#mini-timer { position: fixed; bottom: 120px; right: 20px; width: 70px; height: 70px; background-color: #1a1a1a; border: 4px solid #00bfff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 18px; font-weight: bold; color: #f0f0f0; cursor: pointer; z-index: 99; transition: transform 0.2s ease; }
+#mini-timer:hover { transform: scale(1.1); }
+
+/* --- Стили Круга (Дашборд) --- */
+#goal-circle { width: 200px; height: 200px; border: 8px solid #00bfff; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; flex-shrink: 0; }
+#goal-circle h2 { font-size: 64px; }
+#goal-circle p { color: #aaa; }
+
+/* --- Стили Кнопок --- */
+#start-workout-button, #finish-workout-button, #next-exercise-button { font-size: 18px; font-weight: bold; padding: 15px 30px; border: none; border-radius: 30px; cursor: pointer; width: 90vw; max-width: 400px; }
+#start-workout-button { background-color: #f0f0f0; color: #0a0a0a; }
+#finish-workout-button { background-color: #ff4136; color: #f0f0f0; }
+#next-exercise-button { background-color: #007bff; color: #f0f0f0; margin-top: -10px; }
+
+/* --- Экран Тренировки --- */
+#workout-timer { font-size: 72px; font-weight: bold; color: #00bfff; }
+.exercise-card { background-color: #1a1a1a; border-radius: 12px; padding: 25px; border: 1px solid #222; width: 90vw; max-width: 500px; text-align: center; }
+.exercise-card p { font-size: 16px; color: #aaa; }
+#current-exercise-title { font-size: 28px; font-weight: bold; color: #00bfff; margin-top: 5px; margin-bottom: 20px; }
+.instruction-label { margin-top: 15px; font-weight: bold; }
+#exercise-instructions { font-size: 16px; color: #f0f0f0; line-height: 1.5; }
+
+/* --- Хедер --- */
+/* Этот стиль теперь применится и к иконке AI, и к иконке Профиля */
+header svg { cursor: pointer; opacity: 0.8; transition: opacity 0.2s; }
+header svg:hover { opacity: 1; }
+
+/* --- Секции Дашборда --- */
+.dashboard-section { width: 100%; max-width: 500px; margin-top: 20px; width: 90vw; }
+.section-title { font-size: 20px; color: #f0f0f0; margin-bottom: 15px; padding-left: 10px; border-left: 3px solid #00bfff; }
+.card-container { display: flex; gap: 15px; width: 100%; }
+.summary-card { flex: 1; background-color: #1a1a1a; border-radius: 12px; padding: 20px; border: 1px solid #222; }
+.summary-card h4 { font-size: 16px; color: #aaa; margin-bottom: 8px; }
+.summary-card p { font-size: 18px; font-weight: 600; color: #f0f0f0; }
+.section-button { background-color: #1a1a1a; border: 1px solid #00bfff; color: #f0f0f0; width: 100%; padding: 12px; font-size: 16px; font-weight: 600; border-radius: 10px; cursor: pointer; margin-top: 15px; transition: background-color 0.2s; }
+.section-button:hover { background-color: #222; }
+
+/* --- Экран Прогресса (График) --- */
+.chart-container { background-color: #1a1a1a; border-radius: 12px; padding: 20px; width: 90vw; max-width: 600px; }
+
+/* --- NEXA CHAT --- */
+#nexa-chat-screen { padding: 0; gap: 0; }
+#chat-messages { flex-grow: 1; overflow-y: auto; padding: 20px; width: 100%; display: flex; flex-direction: column; gap: 15px; }
+.chat-message { padding: 12px 18px; border-radius: 20px; max-width: 75%; line-height: 1.5; font-size: 16px; }
+.chat-message.ai { background-color: #222; color: #f0f0f0; align-self: flex-start; border-bottom-left-radius: 5px; }
+.chat-message.user { background-color: #007bff; color: #fff; align-self: flex-end; border-bottom-right-radius: 5px; }
+#chat-input-area { display: flex; padding: 15px; width: 100%; gap: 10px; background-color: #1a1a1a; border-top: 1px solid #222; }
+#chat-input { flex-grow: 1; padding: 12px; border-radius: 20px; border: 1px solid #555; background-color: #333; color: #f0f0f0; font-size: 16px; }
+#chat-send-button { background-color: #007bff; color: #fff; font-weight: bold; border: none; border-radius: 20px; padding: 0 20px; cursor: pointer; }
+
+
+/* --- Стили для кнопок в Футере (Нижняя Панель) --- */
+footer nav { display: flex; justify-content: space-around; width: 100%; }
+.nav-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; text-decoration: none; color: #aaa; transition: color 0.2s; }
+.nav-item svg { width: 24px; height: 24px; stroke: #aaa; transition: stroke 0.2s; }
+.nav-item span { font-size: 12px; margin-top: 4px; }
+.nav-item:hover, .nav-item:hover svg { color: #f0f0f0; stroke: #f0f0f0; }
+.nav-item.active { color: #00bfff; }
+.nav-item.active svg { stroke: #00bfff; }
