@@ -10,35 +10,39 @@ const statusMessage = document.getElementById('status-message');
 tg.ready();
 
 // 4. Вешаем "слушателя" на кнопку Загрузки
-// (Пока она ничего не делает, просто пишет)
 uploadButton.addEventListener('click', () => {
     statusMessage.textContent = 'Функция загрузки фото в разработке...';
-    
-    // (В будущем здесь будет код, открывающий камеру)
-    // tg.showScanQrPopup(...); 
 });
 
-// 5. Вешаем "слушателя" на кнопку Оплаты
+// 5. ⬇️ ИЗМЕНЕНИЕ ЗДЕСЬ: "Слушатель" на кнопку Оплаты (НАСТОЯЩИЕ STARS) ⬇️
 payButton.addEventListener('click', () => {
     
-    // Это тестовый платеж. Он не снимет реальные деньги
+    // Это НАСТОЯЩИЙ платеж в Telegram Stars
     tg.showInvoice({
         title: 'PRX Legit Check',
         description: 'Полная проверка подлинности (1 шт)',
-        payload: 'test-invoice-payload-123',
-        provider_token: '', // Оставим пустым для теста
-        currency: 'USD',
-        prices: [{ label: 'Проверка AI + Эксперт', amount: 399 }] // $3.99
+        payload: 'prx-legit-check-v1', // Уникальный ID платежа
+        currency: 'XTR', // ⬅️ Вот магия. 'XTR' - это Telegram Stars
+        prices: [{ label: 'Проверка AI + Эксперт', amount: 200 }] // ⬅️ 200 Звезд
+        
+        // provider_token нам не нужен для Stars
+        
     }, (status) => {
+        // Эта функция (callback) сработает ПОСЛЕ того, как пользователь
+        // попытается оплатить и закроет окно платежа.
+        
         if (status === 'paid') {
+            // Оплата прошла УСПЕШНО
             statusMessage.textContent = 'Оплата прошла! Начинаем проверку...';
-            // Здесь мы отправим данные нашему боту
-            tg.sendData(JSON.stringify({ status: 'paid', item: 'legit_check' }));
-            // И закроем приложение
+            // Отправляем данные нашему боту
+            tg.sendData(JSON.stringify({ status: 'paid', item: 'legit_check_200_stars' }));
+            // И закрываем приложение
             tg.close();
         } else if (status === 'failed') {
+            // Оплата не удалась
             statusMessage.textContent = 'Оплата не удалась. Попробуйте снова.';
         } else {
+            // 'pending' или 'cancelled'
             statusMessage.textContent = 'Платеж отменен.';
         }
     });
