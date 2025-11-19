@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PRX Legit Check</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-header">
+        <img src="images/prx-logo.jpg" alt="PRX" class="logo">
+    </div>
+
+    <div id="screen-home" class="screen active">
+        <div class="folder-container">
+            <i class="fa-regular fa-folder-open folder-icon"></i>
+        </div>
+        
+        <button class="main-btn" onclick="goToScreen('screen-instructions')">
+            НАЧАТЬ ПРОВЕРКУ
+        </button>
+    </div>
+
+    <div id="screen-instructions" class="screen">
+        <div class="back-header">
+            <i class="fa-solid fa-circle-left back-btn" onclick="goToScreen('screen-home')"></i>
+        </div>
+        
+        <div class="info-card">
+            <h3>Как это работает:</h3>
+            <ul>
+                <li>Нажми <b>"Загрузить фото"</b></li>
+                <li>Выбери тип вещи <br><small>(Например: Обувь, Худи, Футболка)</small></li>
+                <li>Загрузи 5-9 фото <br><small>(Ты можешь найти подробную инструкцию в своем профиле)</small></li>
+                <li>Нажми <b>"Оплатить"</b> + выбери способ оплаты.</li>
+                <li>AI + Эксперт проверят твой товар в порядке очереди.</li>
+                <li>Вердикт придет прямо в этот чат.</li>
+            </ul>
+        </div>
+
+        <button class="main-btn" onclick="goToScreen('screen-categories')">
+            Загрузить фото
+        </button>
+    </div>
+
+    <div id="screen-categories" class="screen">
+        <div class="back-header">
+            <i class="fa-solid fa-circle-left back-btn" onclick="goToScreen('screen-instructions')"></i>
+            <span>Выбери тип вещи</span>
+        </div>
+
+        <div class="grid-container">
+            <div class="grid-item" onclick="selectCategory('Sneakers')">
+                <i class="fa-solid fa-shoe-prints"></i>
+            </div>
+            <div class="grid-item" onclick="selectCategory('Hoodie')">
+                <i class="fa-solid fa-user-ninja"></i> </div>
+            <div class="grid-item" onclick="selectCategory('T-Shirt')">
+                <i class="fa-solid fa-shirt"></i>
+            </div>
+            <div class="grid-item" onclick="selectCategory('Cap')">
+                <i class="fa-brands fa-redhat"></i>
+            </div>
+            <div class="grid-item" onclick="selectCategory('Pants')">
+                <i class="fa-solid fa-layer-group"></i> </div>
+            <div class="grid-item" onclick="selectCategory('Glasses')">
+                <i class="fa-solid fa-glasses"></i>
+            </div>
+        </div>
+
+        <button id="next-btn-cat" class="next-arrow-btn" style="opacity: 0.5;">
+            <i class="fa-solid fa-angles-right"></i>
+        </button>
+    </div>
+
+    <div class="tab-bar">
+        <div class="tab-item" onclick="alert('Profile coming soon')">
+            <i class="fa-regular fa-user"></i>
+        </div>
+        <div class="tab-item active" onclick="goToScreen('screen-home')">
+            <i class="fa-solid fa-house"></i>
+        </div>
+        <div class="tab-item" onclick="alert('Premium coming soon')">
+            <span class="premium-text">PRX<br>PREMIUM</span>
+        </div>
+    </div>
+
+    <script src="main_v2.js"></script>
+</body>
+</html>
