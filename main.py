@@ -1,44 +1,45 @@
 import telebot
 from telebot.types import WebAppInfo, ReplyKeyboardMarkup, KeyboardButton
 
-# ⬇️ ⬇️ ⬇️ ВОТ СЮДА, В СТРОКУ 5 ⬇️ ⬇️ ⬇️
-BOT_TOKEN = "8550041282:AAHeyAy5zJ8z-Y4Ts8_j75cNthDw-Q_lNGM" # ⬅️ ЗАМЕНИ ЭТО НА СВОЙ ТОКЕН
+# 1. Вставь свой Токен (обязательно в кавычках!)
+BOT_TOKEN = '8550041282:AAHeyAy5zJ8z-Y4Ts8_j75cNthDw-Q_lNGM'
 
-# ⬇️ ВАЖНО: Это URL-адрес твоего будущего Mini App (сайта)
-# Пока мы не загрузили сайт, он будет вести на заглушку, это НОРМАЛЬНО.
-WEB_APP_URL = 'https://google.com' # (Позже мы заменим это на наш реальный сайт)
+# 2. Вставь свой ID (цифрами, без кавычек!)
+ADMIN_ID = 597572307
 
-# Инициализируем бота
+# 3. ИСПРАВЛЕННАЯ СТРОКА ССЫЛКИ
+WEB_APP_URL = 'https://prxceo.github.io/index.html?v=new_design'
+
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# --- Обработчик команды /start ---
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    # 1. Создаем саму кнопку, которая открывает Web App
-    web_app_button = KeyboardButton(
-        text="🚀 Начать PRX Legit Check",  # Текст на кнопке
-        web_app=WebAppInfo(url=WEB_APP_URL) # URL, который откроется
-    )
+    markup = ReplyKeyboardMarkup(resize_keyboard=True)
+    markup.add(KeyboardButton(text="🚀 Начать PRX Legit Check", web_app=WebAppInfo(url=WEB_APP_URL)))
     
-    # 2. Создаем "клавиатуру", в которую кладем эту кнопку
-    keyboard = ReplyKeyboardMarkup(
-        resize_keyboard=True, # Адаптирует размер кнопки
-        one_time_keyboard=True # Прячет клавиатуру после нажатия
-    )
-    keyboard.add(web_app_button) # Добавляем кнопку на клавиатуру
-    
-    # 3. Отправляем приветственное сообщение
-    chat_id = message.chat.id
     bot.send_message(
-        chat_id,
-        "Добро пожаловать в **PRX Legit Check**!\n\n"
-        "Я твой персональный AI-ассистент для проверки подлинности вещей.\n\n"
-        "Нажми кнопку ниже, чтобы начать проверку.",
-        reply_markup=keyboard,
+        message.chat.id,
+        "👋 **Добро пожаловать в PRX!**\n\nНажми кнопку ниже, чтобы войти в приложение.",
+        reply_markup=markup,
         parse_mode="Markdown"
     )
 
-# --- Запускаем бота ---
+@bot.message_handler(content_types=['web_app_data'])
+def answer_web_app(message):
+    # Этот блок ловит данные, если приложение что-то пришлет
+    if message.web_app_data.data == 'start_upload':
+        bot.send_message(
+            message.chat.id,
+            "📸 **Принято!**\n\nПришли фото вещи прямо в этот чат (бирка, швы, логотип).",
+            parse_mode="Markdown"
+        )
+    elif message.web_app_data.data == 'paid_success':
+         bot.send_message(message.chat.id, "✅ Оплата получена! Заявка в обработке.")
+
+@bot.message_handler(content_types=['photo'])
+def handle_photos(message):
+    # Пересылаем фото тебе
+    bot.forward_message(ADMIN_ID, message.chat.id, message.message_id)
+
 print("PRX Bot запущен...")
-# 'polling' - это процесс "опроса" Telegram на наличие новых сообщений
 bot.infinity_polling()
