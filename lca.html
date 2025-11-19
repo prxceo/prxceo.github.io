@@ -22,7 +22,7 @@
                 <li>Нажми "Загрузить фото" (нужны бирки, швы, лого).</li>
                 <li>Нажми "Оплатить" (200 Stars) для начала проверки.</li>
                 <li>AI + Эксперт проверят твой товар.</li>
-                <li>Вердикт придет в этот чат в течение 10 минут.</li>
+                <li>Вердикт придет в этот чат.</li>
             </ol>
         </div>
 
@@ -38,6 +38,44 @@
 
     </div>
 
-    <script src="main.js"></script>
+    <script>
+        // 1. Инициализация
+        const tg = window.Telegram.WebApp;
+        const uploadButton = document.getElementById('upload-button');
+        const payButton = document.getElementById('pay-button');
+        const statusMessage = document.getElementById('status-message');
+
+        tg.ready();
+        tg.expand();
+
+        // 2. Логика кнопки "Загрузить фото"
+        uploadButton.addEventListener('click', function() {
+            statusMessage.textContent = "Отправляю запрос...";
+            // Эта команда отправляет данные боту
+            tg.sendData('start_upload');
+            // Эта команда закрывает окно (только если открыто через клавиатуру)
+            // Если не закроется, бот все равно получит данные
+        });
+
+        // 3. Логика кнопки "Оплатить"
+        payButton.addEventListener('click', function() {
+            tg.showInvoice({
+                title: 'PRX Legit Check',
+                description: 'Полная проверка подлинности',
+                payload: 'prx-legit-check-v1',
+                currency: 'XTR', 
+                prices: [{ label: 'Проверка AI + Эксперт', amount: 200 }]
+            }, (status) => {
+                if (status === 'paid') {
+                    statusMessage.textContent = 'Оплата прошла!';
+                    tg.sendData('paid_success');
+                } else if (status === 'failed') {
+                    statusMessage.textContent = 'Оплата не удалась.';
+                } else {
+                    statusMessage.textContent = 'Отмена.';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
