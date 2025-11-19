@@ -39,7 +39,6 @@
     </div>
 
     <script>
-        // 1. Инициализация
         const tg = window.Telegram.WebApp;
         const uploadButton = document.getElementById('upload-button');
         const payButton = document.getElementById('pay-button');
@@ -48,16 +47,20 @@
         tg.ready();
         tg.expand();
 
-        // 2. Логика кнопки "Загрузить фото"
+        // --- КНОПКА ЗАГРУЗКИ ---
         uploadButton.addEventListener('click', function() {
-            statusMessage.textContent = "Отправляю запрос...";
-            // Эта команда отправляет данные боту
+            statusMessage.textContent = "Переход в чат...";
+            
+            // 1. Отправляем сигнал боту
             tg.sendData('start_upload');
-            // Эта команда закрывает окно (только если открыто через клавиатуру)
-            // Если не закроется, бот все равно получит данные
+            
+            // 2. ЗАКРЫВАЕМ ПРИЛОЖЕНИЕ (Это то, чего не хватало!)
+            setTimeout(function() {
+                tg.close();
+            }, 50);
         });
 
-        // 3. Логика кнопки "Оплатить"
+        // --- КНОПКА ОПЛАТЫ ---
         payButton.addEventListener('click', function() {
             tg.showInvoice({
                 title: 'PRX Legit Check',
@@ -69,6 +72,7 @@
                 if (status === 'paid') {
                     statusMessage.textContent = 'Оплата прошла!';
                     tg.sendData('paid_success');
+                    setTimeout(function() { tg.close(); }, 50);
                 } else if (status === 'failed') {
                     statusMessage.textContent = 'Оплата не удалась.';
                 } else {
