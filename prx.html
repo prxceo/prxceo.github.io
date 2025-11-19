@@ -34,7 +34,7 @@
             <ul>
                 <li>Нажми <b>"Загрузить фото"</b></li>
                 <li>Выбери тип вещи <br><small>(Например: Обувь, Худи, Футболка)</small></li>
-                <li>Загрузи 5-9 фото <br><small>(Ты можешь найти подробную инструкцию в своем профиле)</small></li>
+                <li>Загрузи 5-9 фото</li>
                 <li>Нажми <b>"Оплатить"</b> + выбери способ оплаты.</li>
                 <li>AI + Эксперт проверят твой товар в порядке очереди.</li>
                 <li>Вердикт придет прямо в этот чат.</li>
@@ -84,14 +84,86 @@
         </button>
     </div>
 
+    <div id="screen-plans" class="screen">
+        <h2>История проверок</h2>
+        <div class="history-list">
+            <div class="history-item">
+                <div class="history-icon"><i class="fa-solid fa-shoe-prints"></i></div>
+                <div class="history-info">
+                    <div class="history-title">Jordan 1 Mocha</div>
+                    <div class="history-date">Сегодня</div>
+                </div>
+                <div class="history-status status-legit">LEGIT</div>
+            </div>
+            <div class="history-item">
+                <div class="history-icon"><i class="fa-solid fa-shirt"></i></div>
+                <div class="history-info">
+                    <div class="history-title">Supreme Box Logo</div>
+                    <div class="history-date">Вчера</div>
+                </div>
+                <div class="history-status status-fake">FAKE</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-profile" class="screen">
+        <div class="profile-header">
+            <div class="avatar-placeholder"><i class="fa-regular fa-user"></i></div>
+            <h2 id="user-name">Loading...</h2>
+            <span class="user-status">Free User</span>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <span class="stat-num">0</span>
+                <span class="stat-label">Проверок</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-num">0</span>
+                <span class="stat-label">Бонусы</span>
+            </div>
+        </div>
+
+        <div class="profile-menu">
+            <div class="menu-item">
+                <i class="fa-solid fa-circle-question"></i> Поддержка
+            </div>
+            <div class="menu-item">
+                <i class="fa-solid fa-gear"></i> Настройки
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-premium" class="screen">
+        <div class="premium-card">
+            <h2>PRX PREMIUM</h2>
+            <p class="sub-text">Безлимитные проверки и приоритет</p>
+            
+            <ul class="premium-features">
+                <li><i class="fa-solid fa-check"></i> Ответ за 15 минут</li>
+                <li><i class="fa-solid fa-check"></i> Детальный отчет</li>
+                <li><i class="fa-solid fa-check"></i> Связь с экспертом 24/7</li>
+            </ul>
+
+            <div class="price-tag">2500 Stars / месяц</div>
+            
+            <button class="main-btn premium-btn">
+                ОФОРМИТЬ ПОДПИСКУ
+            </button>
+        </div>
+    </div>
+
     <div class="tab-bar">
-        <div class="tab-item" onclick="alert('Profile coming soon')">
+        <div class="tab-item" onclick="goToScreen('screen-profile')">
             <i class="fa-regular fa-user"></i>
         </div>
         <div class="tab-item active" onclick="goToScreen('screen-home')">
             <i class="fa-solid fa-house"></i>
         </div>
-        <div class="tab-item" onclick="alert('Premium coming soon')">
+        <div class="tab-item" onclick="goToScreen('screen-plans')">
+             <i class="fa-regular fa-calendar-check"></i>
+        </div>
+        <div class="tab-item" onclick="goToScreen('screen-premium')">
             <span class="premium-text">PRX<br>PREMIUM</span>
         </div>
     </div>
