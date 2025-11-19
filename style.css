@@ -1,97 +1,189 @@
-/* --- Сброс и Основные стили --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Убирает синий клик на iPhone */
 }
 
 body {
-    /* Берем цвета из Telegram */
-    background-color: var(--tg-theme-bg-color, #18222d);
-    color: var(--tg-theme-text-color, #ffffff);
-    
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
-    min-height: 100vh;
-}
-
-.container {
-    width: 100%;
-    max-width: 400px;
+    background-color: #000000;
+    color: #ffffff;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    overflow: hidden; /* Чтобы не скроллилось лишнее */
 }
 
-/* --- Хедер --- */
-header {
+/* --- ЛОГО --- */
+.app-header {
     text-align: center;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--tg-theme-hint-color, #666);
-}
-#app-logo {
+    padding-top: 20px;
     height: 60px;
-    width: auto;
-    object-fit: contain;
-    margin-bottom: 10px;
 }
-header h2 {
-    font-size: 24px;
-    font-weight: 700;
+.logo {
+    height: 25px;
 }
 
-/* --- Инструкции --- */
-.instructions {
-    background-color: var(--tg-theme-secondary-bg-color, #232e3c);
-    padding: 15px 20px;
-    border-radius: 12px;
+/* --- ЭКРАНЫ --- */
+.screen {
+    flex-grow: 1;
+    display: none; /* Скрываем все экраны */
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
 }
-.instructions h4 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-.instructions ol {
-    padding-left: 20px;
-}
-.instructions ol li {
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 8px;
+.screen.active {
+    display: flex; /* Показываем активный */
 }
 
-/* --- Кнопки --- */
-.btn {
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- ЭКРАН 1: HOME --- */
+.folder-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.folder-icon {
+    font-size: 120px;
+    color: #ffffff;
+    border: 2px solid #333;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+/* --- КНОПКИ --- */
+.main-btn {
     width: 100%;
+    background: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff;
     padding: 15px;
-    border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     cursor: pointer;
-    transition: transform 0.1s ease;
+    margin-bottom: 80px; /* Место под таббар */
+    transition: background 0.2s;
 }
-.btn:active {
-    transform: scale(0.98);
-}
-
-/* "Главная" кнопка (Загрузить) */
-.btn-primary {
-    background-color: var(--tg-theme-button-color, #5288c1);
-    color: var(--tg-theme-button-text-color, #ffffff);
+.main-btn:active {
+    background: #333;
 }
 
-/* "Вторая" кнопка (Оплатить) */
-.btn-secondary {
-    background-color: var(--tg-theme-secondary-bg-color, #232e3c);
-    color: var(--tg-theme-text-color, #ffffff);
+/* --- ЭКРАН 2: INFO --- */
+.back-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 18px;
 }
-
-/* --- Статус --- */
-#status-message {
+.back-btn {
+    font-size: 24px;
+    cursor: pointer;
+    color: #aaa;
+}
+.info-card {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 20px;
+    width: 100%;
+    margin-bottom: auto; /* Толкает контент вверх */
+}
+.info-card h3 {
     text-align: center;
-    font-size: 15px;
-    padding: 10px;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+.info-card ul {
+    list-style: none;
+    text-align: center;
+}
+.info-card li {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #ddd;
+}
+.info-card small {
+    display: block;
+    color: #666;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+/* --- ЭКРАН 3: GRID --- */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 колонки */
+    gap: 15px;
+    width: 100%;
+    margin-bottom: auto;
+}
+.grid-item {
+    aspect-ratio: 1; /* Квадратные */
+    border: 1px solid #ffffff;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.grid-item.selected {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.next-arrow-btn {
+    background: #333;
+    border: none;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    font-size: 24px;
+    margin-bottom: 80px;
+    cursor: pointer;
+}
+
+/* --- TAB BAR (Нижняя панель) --- */
+.tab-bar {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    height: 60px;
+    border: 1px solid #333;
+    border-radius: 30px;
+    background: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    z-index: 100;
+}
+.tab-item {
+    color: #666;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+.tab-item.active {
+    color: #ffffff;
+}
+.premium-text {
+    font-size: 8px;
+    line-height: 1;
+    font-weight: bold;
+    display: block;
 }
