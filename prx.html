@@ -53,26 +53,34 @@
         </div>
 
         <div class="grid-container">
-            <div class="grid-item" onclick="selectCategory('Sneakers')">
+            <div class="grid-item" onclick="selectCategory('Sneakers', this)">
                 <i class="fa-solid fa-shoe-prints"></i>
+                <span>Sneakers</span>
             </div>
-            <div class="grid-item" onclick="selectCategory('Hoodie')">
-                <i class="fa-solid fa-user-ninja"></i> </div>
-            <div class="grid-item" onclick="selectCategory('T-Shirt')">
+            <div class="grid-item" onclick="selectCategory('Hoodie', this)">
+                <i class="fa-solid fa-user-ninja"></i>
+                <span>Hoodie</span>
+            </div>
+            <div class="grid-item" onclick="selectCategory('T-Shirt', this)">
                 <i class="fa-solid fa-shirt"></i>
+                <span>T-Shirt</span>
             </div>
-            <div class="grid-item" onclick="selectCategory('Cap')">
+            <div class="grid-item" onclick="selectCategory('Cap', this)">
                 <i class="fa-brands fa-redhat"></i>
+                <span>Cap</span>
             </div>
-            <div class="grid-item" onclick="selectCategory('Pants')">
-                <i class="fa-solid fa-layer-group"></i> </div>
-            <div class="grid-item" onclick="selectCategory('Glasses')">
-                <i class="fa-solid fa-glasses"></i>
+             <div class="grid-item" onclick="selectCategory('Bag', this)">
+                <i class="fa-solid fa-briefcase"></i>
+                <span>Bag</span>
+            </div>
+             <div class="grid-item" onclick="selectCategory('Other', this)">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Other</span>
             </div>
         </div>
 
-        <button id="next-btn-cat" class="next-arrow-btn" style="opacity: 0.5;">
-            <i class="fa-solid fa-angles-right"></i>
+        <button id="next-btn-cat" class="next-arrow-btn">
+            CONTINUE <i class="fa-solid fa-arrow-right"></i>
         </button>
     </div>
 
