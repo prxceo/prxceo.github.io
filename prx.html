@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <header>
+    <header id="main-header">
         <img id="app-logo" src="images/prx-logo.jpg" alt="PRX">
     </header>
 
@@ -18,20 +18,18 @@
         
         <div class="news-feed-container">
             <h3>FASHION NEWS</h3>
-            
             <div class="news-card">
                 <div class="news-icon"><i class="fa-brands fa-nike"></i></div>
                 <div class="news-content">
                     <p>Nike x Travis Scott "Olive"</p>
-                    <small>Drop: Tomorrow</small>
+                    <small>DROP: TOMORROW</small>
                 </div>
             </div>
-            
             <div class="news-card">
                 <div class="news-icon"><i class="fa-solid fa-shirt"></i></div>
                 <div class="news-content">
                     <p>Balenciaga Fall 2025</p>
-                    <small>New Collection</small>
+                    <small>NEW COLLECTION</small>
                 </div>
             </div>
         </div>
@@ -45,17 +43,29 @@
         <div class="back-header">
             <i class="fa-solid fa-chevron-left back-btn" onclick="goToScreen('screen-home')"></i>
         </div>
+        
         <div class="info-card">
             <h3>INSTRUCTIONS</h3>
-            <ul>
-                <li>1. Нажми <b>"Загрузить фото"</b></li>
-                <li>2. Выбери категорию</li>
-                <li>3. Загрузи 5-8 фото</li>
-                <li>4. Оплати проверку</li>
-            </ul>
+            <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-text">Нажми <b>"Загрузить фото"</b></div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-text">Выбери категорию (Обувь, Одежда...)</div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-text">Загрузи 5-8 четких фото</div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-text">Оплати проверку (200 Stars)</div>
+            </div>
         </div>
+
         <button class="glassy-main-btn" onclick="goToScreen('screen-categories')">
-            Загрузить фото
+            ЗАГРУЗИТЬ ФОТО
         </button>
     </div>
 
@@ -64,22 +74,64 @@
             <i class="fa-solid fa-chevron-left back-btn" onclick="goToScreen('screen-instructions')"></i>
             <span>SELECT ITEM</span>
         </div>
+
         <div class="grid-container">
-            <div class="grid-item" onclick="selectCategory('Sneakers', this)"><i class="fa-solid fa-shoe-prints"></i><span>Sneakers</span></div>
-            <div class="grid-item" onclick="selectCategory('Hoodie', this)"><i class="fa-solid fa-user-ninja"></i><span>Hoodie</span></div>
-            <div class="grid-item" onclick="selectCategory('T-Shirt', this)"><i class="fa-solid fa-shirt"></i><span>T-Shirt</span></div>
-            <div class="grid-item" onclick="selectCategory('Bag', this)"><i class="fa-solid fa-briefcase"></i><span>Bag</span></div>
+            <div class="grid-item" onclick="selectCategory('Sneakers', this)">
+                <i class="fa-solid fa-shoe-prints"></i><span>Sneakers</span>
+            </div>
+            <div class="grid-item" onclick="selectCategory('Hoodie', this)">
+                <i class="fa-solid fa-user-ninja"></i><span>Hoodie</span>
+            </div>
+            <div class="grid-item" onclick="selectCategory('T-Shirt', this)">
+                <i class="fa-solid fa-shirt"></i><span>T-Shirt</span>
+            </div>
+            <div class="grid-item" onclick="selectCategory('Pants', this)">
+                <i class="fa-solid fa-layer-group"></i><span>Pants</span>
+            </div>
+            <div class="grid-item" onclick="selectCategory('Bag', this)">
+                <i class="fa-solid fa-briefcase"></i><span>Bag</span>
+            </div>
+            <div class="grid-item" onclick="selectCategory('Accessories', this)">
+                <i class="fa-solid fa-glasses"></i><span>Other</span>
+            </div>
         </div>
-        <button id="next-btn-cat" class="next-arrow-btn">CONTINUE</button>
+
+        <button id="next-btn-cat" class="next-arrow-btn">
+            CONTINUE
+        </button>
     </div>
 
-    <footer>
-        <nav>
-            <a class="nav-item" onclick="alert('Profile')"><i class="fa-regular fa-user"></i></a>
-            <a class="nav-item active" onclick="goToScreen('screen-home')"><i class="fa-solid fa-house"></i></a>
-            <a class="nav-item" onclick="alert('Premium')"><i class="fa-regular fa-star"></i></a>
-        </nav>
-    </footer>
+    <div id="screen-profile" class="screen">
+        <div class="profile-header">
+            <div class="avatar-circle"><i class="fa-regular fa-user"></i></div>
+            <h2 id="user-name">Guest</h2>
+            <span class="status-badge">Free User</span>
+        </div>
+        <div class="menu-list">
+            <div class="menu-row"><i class="fa-solid fa-clock-rotate-left"></i> История проверок</div>
+            <div class="menu-row"><i class="fa-solid fa-headset"></i> Поддержка</div>
+        </div>
+    </div>
+
+    <div id="screen-premium" class="screen">
+        <div class="premium-card">
+            <h2>PRX PREMIUM</h2>
+            <p>Безлимитные проверки и приоритет</p>
+            <button class="glassy-main-btn">ОФОРМИТЬ</button>
+        </div>
+    </div>
+
+    <div class="tab-bar">
+        <div class="tab-item" onclick="goToScreen('screen-profile')">
+            <i class="fa-regular fa-user"></i>
+        </div>
+        <div class="tab-item active" onclick="goToScreen('screen-home')">
+            <i class="fa-solid fa-house"></i>
+        </div>
+        <div class="tab-item" onclick="goToScreen('screen-premium')">
+            <i class="fa-regular fa-star"></i>
+        </div>
+    </div>
 
     <script src="main_v2.js"></script>
 </body>

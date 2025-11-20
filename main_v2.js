@@ -4,37 +4,40 @@ tg.expand();
 
 let currentCategory = null;
 
-// --- ГЛАВНАЯ ФУНКЦИЯ НАВИГАЦИИ ---
+// --- НАВИГАЦИЯ ---
 function goToScreen(screenId) {
-    // 1. Переключаем экраны
+    // 1. Скрываем все экраны
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    // 2. Показываем нужный
     document.getElementById(screenId).classList.add('active');
 
-    // 2. Focus Mode (Скрываем/Показываем Таббар)
+    // 3. Управление видимостью Хедера и Футера
     const tabBar = document.querySelector('.tab-bar');
-    // Экраны, где панель ВИДНА
-    const mainScreens = ['screen-home', 'screen-plans', 'screen-profile', 'screen-premium'];
+    const header = document.querySelector('header');
 
-    if (mainScreens.includes(screenId)) {
+    // Список экранов, где видим меню (Главная, Профиль, Премиум)
+    const menuScreens = ['screen-home', 'screen-profile', 'screen-premium'];
+
+    if (menuScreens.includes(screenId)) {
+        // Показываем меню и хедер
         tabBar.classList.remove('hidden');
+        if(header) header.classList.remove('hidden');
     } else {
+        // Скрываем меню и хедер (режим фокуса)
         tabBar.classList.add('hidden');
+        if(header) header.classList.add('hidden');
     }
 
-    // 3. Подсветка иконки в Таббаре
+    // Подсветка иконок
     document.querySelectorAll('.tab-item').forEach(item => item.classList.remove('active'));
     
-    // Индексы иконок: 0-Профиль, 1-Дом, 2-История, 3-Премиум
     if (screenId === 'screen-profile') document.querySelectorAll('.tab-item')[0].classList.add('active');
     if (screenId === 'screen-home') document.querySelectorAll('.tab-item')[1].classList.add('active');
-    if (screenId === 'screen-plans') document.querySelectorAll('.tab-item')[2].classList.add('active');
-    if (screenId === 'screen-premium') document.querySelectorAll('.tab-item')[3].classList.add('active');
+    if (screenId === 'screen-premium') document.querySelectorAll('.tab-item')[2].classList.add('active');
 
-    // Сброс выбора категории, если вернулись домой
     if (screenId === 'screen-home') resetSelection();
 }
 
-// --- ВЫБОР КАТЕГОРИИ ---
 function selectCategory(categoryName, element) {
     currentCategory = categoryName;
     document.querySelectorAll('.grid-item').forEach(item => item.classList.remove('selected'));
@@ -46,40 +49,30 @@ function selectCategory(categoryName, element) {
 function resetSelection() {
     currentCategory = null;
     document.querySelectorAll('.grid-item').forEach(item => item.classList.remove('selected'));
-    const nextBtn = document.getElementById('next-btn-cat');
-    if(nextBtn) nextBtn.classList.remove('visible');
+    const btn = document.getElementById('next-btn-cat');
+    if(btn) btn.classList.remove('visible');
 }
 
-// --- ОПЛАТА ---
-function processSelection() {
-    if (!currentCategory) return;
-
-    tg.showInvoice({
-        title: `Check: ${currentCategory}`,
-        description: `Authenticity check for ${currentCategory}`,
-        payload: `prx-${currentCategory}-v1`,
-        currency: 'XTR',
-        prices: [{ label: 'PRX Expert Check', amount: 200 }]
-    }, (status) => {
-        if (status === 'paid') {
-            tg.sendData('paid_success');
-            tg.close();
-        }
-    });
-}
-
-// --- ИНИЦИАЛИЗАЦИЯ И ДАННЫЕ ЮЗЕРА ---
+// Логика кнопки "CONTINUE" (Заглушка платежа)
 document.addEventListener('DOMContentLoaded', () => {
-    // Клик по кнопке "Continue"
     const nextBtn = document.getElementById('next-btn-cat');
-    if(nextBtn) nextBtn.addEventListener('click', processSelection);
-
-    // Получаем имя пользователя из Telegram
+    if(nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            tg.showInvoice({
+                title: `Check: ${currentCategory}`,
+                description: 'Authenticity Check',
+                payload: 'test-pay',
+                currency: 'XTR',
+                prices: [{ label: 'Expert Check', amount: 200 }]
+            }, (status) => {
+                if (status === 'paid') { tg.sendData('paid_success'); tg.close(); }
+            });
+        });
+    }
+    
+    // Имя пользователя
     const user = tg.initDataUnsafe.user;
-    if (user) {
-        const nameElement = document.getElementById('user-name');
-        if (nameElement) {
-            nameElement.textContent = user.first_name + (user.last_name ? " " + user.last_name : "");
-        }
+    if (user && document.getElementById('user-name')) {
+        document.getElementById('user-name').textContent = user.first_name;
     }
 });
