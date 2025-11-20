@@ -1,53 +1,42 @@
 import telebot
-from telebot.types import WebAppInfo, ReplyKeyboardMarkup, KeyboardButton
+from telebot import types
 
-# 1. ВСТАВЬ СЮДА СВОЙ ТОКЕН (В КАВЫЧКАХ)
+# Вставь сюда свой токен от BotFather
 BOT_TOKEN = '8550041282:AAHeyAy5zJ8z-Y4Ts8_j75cNthDw-Q_lNGM'
-
-# 2. ВСТАВЬ СЮДА СВОЙ ID (ЦИФРАМИ, БЕЗ КАВЫЧЕК)
-ADMIN_ID = 597572307
-
-# 3. ССЫЛКА НА НОВЫЙ ФАЙЛ (prx.html)
-WEB_APP_URL = 'https://prxceo.github.io/index.html?v=clean_design'
-
 bot = telebot.TeleBot(BOT_TOKEN)
 
+# ID админа, куда будут приходить заявки (узнай свой ID через @userinfobot)
+ADMIN_ID = '597572307' 
+
 @bot.message_handler(commands=['start'])
-def send_welcome(message):
-    markup = ReplyKeyboardMarkup(resize_keyboard=True)
+def start(message):
+    markup = types.InlineKeyboardMarkup()
+    # ВАЖНО: ?v=3.0 помогает сбросить кэш телеграма
+    web_app = types.WebAppInfo(url="https://prxceo.github.io/index.html?v=3.0")
     
-    # ⬇️ КНОПКА С НОВЫМ ТЕКСТОМ (ЧТОБЫ ТЫ ВИДЕЛ ИЗМЕНЕНИЯ) ⬇️
-    web_app_button = KeyboardButton(
-        text="Open App", 
-        web_app=WebAppInfo(url=WEB_APP_URL)
-    )
-    
-    markup.add(web_app_button)
+    # Кнопка, открывающая Mini App
+    markup.add(types.InlineKeyboardButton("🔥 OPEN PRX LEGIT 🔥", web_app=web_app))
     
     bot.send_message(
-        message.chat.id,
-        "👋 **Добро пожаловать в PRX Legit Check!**\n\n"
-        "Нажми красную кнопку ниже, чтобы открыть новую версию.",
-        reply_markup=markup,
-        parse_mode="Markdown"
+        message.chat.id, 
+        "Привет! Нажми на кнопку ниже, чтобы запустить проверку:", 
+        reply_markup=markup
     )
 
-# Обработка данных от приложения
+# Обработчик данных, пришедших из Mini App (команда sendData из JS)
 @bot.message_handler(content_types=['web_app_data'])
-def answer_web_app(message):
-    if message.web_app_data.data == 'start_upload':
-        bot.send_message(
-            message.chat.id,
-            "📸 **Принято!**\n\nПришли фото вещи прямо в этот чат (бирка, швы, логотип). Я перешлю их эксперту.",
-            parse_mode="Markdown"
-        )
-    elif message.web_app_data.data == 'paid_success':
-         bot.send_message(message.chat.id, "✅ Оплата получена! Статус: PREMIUM.")
+def web_app_data(message):
+    try:
+        data = message.web_app_data.data
+        # Отправляем подтверждение пользователю
+        bot.send_message(message.chat.id, f"✅ Данные получены: {data}")
+        
+        # Пересылаем админу (если ID указан)
+        if ADMIN_ID != 'YOUR_ADMIN_ID':
+            bot.send_message(ADMIN_ID, f"📩 Новая заявка от @{message.from_user.username}:\n{data}")
+            
+    except Exception as e:
+        print(f"Error: {e}")
 
-# Пересылка фото тебе
-@bot.message_handler(content_types=['photo'])
-def handle_photos(message):
-    bot.forward_message(ADMIN_ID, message.chat.id, message.message_id)
-
-print("PRX Bot перезапущен...")
-bot.infinity_polling()
+if __name__ == '__main__':
+    bot.infinity_polling()

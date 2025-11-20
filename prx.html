@@ -2,136 +2,134 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PRX Legit Check</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>PRX LEGIT CHECK</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-    <header id="main-header">
-        <img id="app-logo" src="images/prx-logo.jpg" alt="PRX">
-    </header>
-
     <div id="screen-home" class="screen active">
-        
-        <div class="news-feed-container">
-            <h3>FASHION NEWS</h3>
-            <div class="news-card">
-                <div class="news-icon"><i class="fa-brands fa-nike"></i></div>
-                <div class="news-content">
-                    <p>Nike x Travis Scott "Olive"</p>
-                    <small>DROP: TOMORROW</small>
-                </div>
-            </div>
-            <div class="news-card">
-                <div class="news-icon"><i class="fa-solid fa-shirt"></i></div>
-                <div class="news-content">
-                    <p>Balenciaga Fall 2025</p>
-                    <small>NEW COLLECTION</small>
-                </div>
-            </div>
+        <div class="header">
+            <img src="images/prx-logo.jpg" alt="PRX Logo" class="logo-img">
+            <div class="status-badge">System Online</div>
         </div>
         
-        <button class="glassy-main-btn" onclick="goToScreen('screen-instructions')">
-            НАЧАТЬ ПРОВЕРКУ
-        </button>
+        <div class="hero-section">
+            <h1>PRX LEGIT</h1>
+            <p>Professional Authentication</p>
+        </div>
+
+        <div class="news-card glass-panel">
+            <h3>⚡ Latest Updates</h3>
+            <p>New verification algorithm deployed. Faster & more accurate.</p>
+        </div>
+
+        <button class="main-btn" onclick="startFlow()">НАЧАТЬ ПРОВЕРКУ</button>
     </div>
 
-    <div id="screen-instructions" class="screen">
-        <div class="back-header">
-            <i class="fa-solid fa-chevron-left back-btn" onclick="goToScreen('screen-home')"></i>
-        </div>
-        
-        <div class="info-card">
-            <h3>INSTRUCTIONS</h3>
-            <div class="step-item">
-                <div class="step-num">1</div>
-                <div class="step-text">Нажми <b>"Загрузить фото"</b></div>
+    <div id="screen-instruction" class="screen">
+        <h2>Как это работает?</h2>
+        <div class="steps-container">
+            <div class="step glass-panel">
+                <i class="fas fa-camera"></i>
+                <p>1. Сделайте четкие фото бирки, швов и логотипа.</p>
             </div>
-            <div class="step-item">
-                <div class="step-num">2</div>
-                <div class="step-text">Выбери категорию (Обувь, Одежда...)</div>
+            <div class="step glass-panel">
+                <i class="fas fa-upload"></i>
+                <p>2. Загрузите их в следующем шаге.</p>
             </div>
-            <div class="step-item">
-                <div class="step-num">3</div>
-                <div class="step-text">Загрузи 5-8 четких фото</div>
-            </div>
-            <div class="step-item">
-                <div class="step-num">4</div>
-                <div class="step-text">Оплати проверку (200 Stars)</div>
+            <div class="step glass-panel">
+                <i class="fas fa-check-circle"></i>
+                <p>3. Получите вердикт эксперта.</p>
             </div>
         </div>
-
-        <button class="glassy-main-btn" onclick="goToScreen('screen-categories')">
-            ЗАГРУЗИТЬ ФОТО
-        </button>
+        <button class="main-btn" onclick="goToScreen('screen-categories')">ПОНЯТНО</button>
     </div>
 
     <div id="screen-categories" class="screen">
-        <div class="back-header">
-            <i class="fa-solid fa-chevron-left back-btn" onclick="goToScreen('screen-instructions')"></i>
-            <span>SELECT ITEM</span>
-        </div>
-
+        <h2>Выберите категорию</h2>
         <div class="grid-container">
-            <div class="grid-item" onclick="selectCategory('Sneakers', this)">
-                <i class="fa-solid fa-shoe-prints"></i><span>Sneakers</span>
+            <div class="grid-item glass-panel" onclick="selectCategory('Sneakers')">
+                <i class="fas fa-shoe-prints"></i>
+                <span>Sneakers</span>
             </div>
-            <div class="grid-item" onclick="selectCategory('Hoodie', this)">
-                <i class="fa-solid fa-user-ninja"></i><span>Hoodie</span>
+            <div class="grid-item glass-panel" onclick="selectCategory('Hoodie')">
+                <i class="fas fa-tshirt"></i>
+                <span>Hoodie</span>
             </div>
-            <div class="grid-item" onclick="selectCategory('T-Shirt', this)">
-                <i class="fa-solid fa-shirt"></i><span>T-Shirt</span>
+            <div class="grid-item glass-panel" onclick="selectCategory('T-Shirt')">
+                <i class="fas fa-layer-group"></i>
+                <span>T-Shirt</span>
             </div>
-            <div class="grid-item" onclick="selectCategory('Pants', this)">
-                <i class="fa-solid fa-layer-group"></i><span>Pants</span>
+            <div class="grid-item glass-panel" onclick="selectCategory('Bag')">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Bag</span>
             </div>
-            <div class="grid-item" onclick="selectCategory('Bag', this)">
-                <i class="fa-solid fa-briefcase"></i><span>Bag</span>
+            <div class="grid-item glass-panel" onclick="selectCategory('Accessory')">
+                <i class="fas fa-hat-cowboy"></i>
+                <span>Accessory</span>
             </div>
-            <div class="grid-item" onclick="selectCategory('Accessories', this)">
-                <i class="fa-solid fa-glasses"></i><span>Other</span>
+            <div class="grid-item glass-panel" onclick="selectCategory('Other')">
+                <i class="fas fa-box-open"></i>
+                <span>Other</span>
             </div>
         </div>
+        <button class="secondary-btn" onclick="goHome()">Назад</button>
+    </div>
 
-        <button id="next-btn-cat" class="next-arrow-btn">
-            CONTINUE
-        </button>
+    <div id="screen-upload" class="screen">
+        <h2 id="cat-title">Загрузка фото</h2>
+        <p>Прикрепите фото товара</p>
+        
+        <div class="upload-zone glass-panel" id="drop-zone">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Нажмите для выбора</p>
+        </div>
+        <input type="file" id="file-input" multiple style="display: none;">
+
+        <div id="preview-container"></div>
+
+        <button class="main-btn" onclick="submitData()">ОТПРАВИТЬ НА ПРОВЕРКУ</button>
+        <button class="secondary-btn" onclick="goToScreen('screen-categories')">Назад</button>
     </div>
 
     <div id="screen-profile" class="screen">
-        <div class="profile-header">
-            <div class="avatar-circle"><i class="fa-regular fa-user"></i></div>
-            <h2 id="user-name">Guest</h2>
-            <span class="status-badge">Free User</span>
+        <h2>Мой Профиль</h2>
+        <div class="glass-panel profile-card">
+            <div class="avatar-circle"><i class="fas fa-user"></i></div>
+            <h3>User #777</h3>
+            <p>Статус: <span style="color: #00f2ff;">Basic</span></p>
         </div>
-        <div class="menu-list">
-            <div class="menu-row"><i class="fa-solid fa-clock-rotate-left"></i> История проверок</div>
-            <div class="menu-row"><i class="fa-solid fa-headset"></i> Поддержка</div>
+        <div class="glass-panel">
+            <p>История проверок пуста.</p>
         </div>
     </div>
 
     <div id="screen-premium" class="screen">
-        <div class="premium-card">
-            <h2>PRX PREMIUM</h2>
-            <p>Безлимитные проверки и приоритет</p>
-            <button class="glassy-main-btn">ОФОРМИТЬ</button>
+        <h2>PRX PREMIUM</h2>
+        <div class="glass-panel premium-card">
+            <h3>🚀 Fast Track</h3>
+            <p>Приоритетная проверка за 10 минут.</p>
+            <button class="main-btn">КУПИТЬ ЗА 50 ⭐️</button>
         </div>
     </div>
 
-    <div class="tab-bar">
-        <div class="tab-item" onclick="goToScreen('screen-profile')">
-            <i class="fa-regular fa-user"></i>
+    <nav class="bottom-nav glass-panel">
+        <div class="nav-item active" onclick="switchTab('home')">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
         </div>
-        <div class="tab-item active" onclick="goToScreen('screen-home')">
-            <i class="fa-solid fa-house"></i>
+        <div class="nav-item" onclick="switchTab('premium')">
+            <i class="fas fa-star"></i>
+            <span>Premium</span>
         </div>
-        <div class="tab-item" onclick="goToScreen('screen-premium')">
-            <i class="fa-regular fa-star"></i>
+        <div class="nav-item" onclick="switchTab('profile')">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
         </div>
-    </div>
+    </nav>
 
     <script src="main_v2.js"></script>
 </body>

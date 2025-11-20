@@ -1,78 +1,78 @@
 const tg = window.Telegram.WebApp;
-tg.ready();
-tg.expand();
+tg.expand(); // Раскрываем на весь экран
 
-let currentCategory = null;
+let selectedCategory = "";
 
-// --- НАВИГАЦИЯ ---
+// --- НАВИГАЦИЯ ПО ВКЛАДКАМ (Bottom Bar) ---
+function switchTab(tabName) {
+    // 1. Сбрасываем активность всех кнопок меню
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    
+    // 2. Скрываем все экраны
+    document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+
+    // 3. Активируем нужную вкладку
+    if (tabName === 'home') {
+        document.getElementById('screen-home').classList.add('active');
+        // Находим кнопку Home и делаем активной (по индексу или селектору)
+        document.querySelectorAll('.nav-item')[0].classList.add('active');
+    } else if (tabName === 'premium') {
+        document.getElementById('screen-premium').classList.add('active');
+        document.querySelectorAll('.nav-item')[1].classList.add('active');
+    } else if (tabName === 'profile') {
+        document.getElementById('screen-profile').classList.add('active');
+        document.querySelectorAll('.nav-item')[2].classList.add('active');
+    }
+}
+
+// --- ЛОГИКА ПРОВЕРКИ (Focus Mode) ---
+function startFlow() {
+    // Скрываем нижнюю панель, чтобы не отвлекала
+    document.querySelector('.bottom-nav').classList.add('hidden');
+    goToScreen('screen-instruction');
+}
+
+function goHome() {
+    // Возвращаем нижнюю панель
+    document.querySelector('.bottom-nav').classList.remove('hidden');
+    switchTab('home');
+}
+
 function goToScreen(screenId) {
-    // 1. Скрываем все экраны
+    // Утилита для переключения между экранами внутри процесса проверки
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    // 2. Показываем нужный
     document.getElementById(screenId).classList.add('active');
-
-    // 3. Управление видимостью Хедера и Футера
-    const tabBar = document.querySelector('.tab-bar');
-    const header = document.querySelector('header');
-
-    // Список экранов, где видим меню (Главная, Профиль, Премиум)
-    const menuScreens = ['screen-home', 'screen-profile', 'screen-premium'];
-
-    if (menuScreens.includes(screenId)) {
-        // Показываем меню и хедер
-        tabBar.classList.remove('hidden');
-        if(header) header.classList.remove('hidden');
-    } else {
-        // Скрываем меню и хедер (режим фокуса)
-        tabBar.classList.add('hidden');
-        if(header) header.classList.add('hidden');
-    }
-
-    // Подсветка иконок
-    document.querySelectorAll('.tab-item').forEach(item => item.classList.remove('active'));
-    
-    if (screenId === 'screen-profile') document.querySelectorAll('.tab-item')[0].classList.add('active');
-    if (screenId === 'screen-home') document.querySelectorAll('.tab-item')[1].classList.add('active');
-    if (screenId === 'screen-premium') document.querySelectorAll('.tab-item')[2].classList.add('active');
-
-    if (screenId === 'screen-home') resetSelection();
 }
 
-function selectCategory(categoryName, element) {
-    currentCategory = categoryName;
-    document.querySelectorAll('.grid-item').forEach(item => item.classList.remove('selected'));
-    element.classList.add('selected');
-    document.getElementById('next-btn-cat').classList.add('visible');
-    if(tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+function selectCategory(category) {
+    selectedCategory = category;
+    document.getElementById('cat-title').innerText = "Check: " + category;
+    goToScreen('screen-upload');
 }
 
-function resetSelection() {
-    currentCategory = null;
-    document.querySelectorAll('.grid-item').forEach(item => item.classList.remove('selected'));
-    const btn = document.getElementById('next-btn-cat');
-    if(btn) btn.classList.remove('visible');
-}
+// --- ЗАГРУЗКА ФОТО ---
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
 
-// Логика кнопки "CONTINUE" (Заглушка платежа)
-document.addEventListener('DOMContentLoaded', () => {
-    const nextBtn = document.getElementById('next-btn-cat');
-    if(nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            tg.showInvoice({
-                title: `Check: ${currentCategory}`,
-                description: 'Authenticity Check',
-                payload: 'test-pay',
-                currency: 'XTR',
-                prices: [{ label: 'Expert Check', amount: 200 }]
-            }, (status) => {
-                if (status === 'paid') { tg.sendData('paid_success'); tg.close(); }
-            });
-        });
-    }
-    
-    // Имя пользователя
-    const user = tg.initDataUnsafe.user;
-    if (user && document.getElementById('user-name')) {
-        document.getElementById('user-name').textContent = user.first_name;
+dropZone.addEventListener('click', () => fileInput.click());
+
+fileInput.addEventListener('change', function() {
+    if (this.files.length > 0) {
+        dropZone.innerHTML = `<i class="fas fa-check" style="color: #00f2ff"></i> <p>${this.files.length} фото выбрано</p>`;
     }
 });
+
+function submitData() {
+    if (!selectedCategory) {
+        tg.showAlert("Ошибка: Категория не выбрана");
+        return;
+    }
+
+    // Демонстрация отправки (в реале здесь отправка на сервер или боту)
+    const data = {
+        category: selectedCategory,
+        action: "verification_request"
+    };
+
+    tg.sendData(JSON.stringify(data)); // Отправляем данные боту
+}
