@@ -7,19 +7,43 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-    <div class="app-header">
-        <img src="images/prx-logo.jpg" alt="PRX" class="logo">
-    </div>
+    <header>
+        <svg id="profile-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f0f0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="goToScreen('screen-profile')">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        
+        <img id="app-logo" src="images/prx-logo.jpg" alt="PRX Logo"> 
+        
+        <svg id="ai-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f0f0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="goToScreen('nexa-chat-screen')">
+            <path d="M12 2a4 4 0 0 0-4 4c0 1.48.8 2.77 2 3.46V12c0 1.1.9 2 2 2s2-.9 2-2V9.46c1.2-.69 2-1.98 2-3.46a4 4 0 0 0-4-4z"/>
+            <path d="M14 12v1.5c0 .28-.22.5-.5.5h-3c-.28 0-.5-.22-.5-.5V12"/>
+            <path d="M4.5 10.5c-1.12 0-2 .9-2 2v3c0 1.1.9 2 2 2h1.28"/>
+            <path d="M18.22 17.5H19.5c1.1 0 2-.9 2-2v-3c0-1.1-.88-2-2-2"/>
+            <path d="M16 13h-2v1.5c0 .28-.22.5-.5.5h-3c-.28 0-.5-.22-.5-.5V13H8"/>
+            <path d="M16 17H8"/>
+        </svg>
+    </header>
 
     <div id="screen-home" class="screen active">
-        <div class="folder-container">
-            <i class="fa-regular fa-folder-open folder-icon"></i>
+        
+        <div class="news-feed-container">
+            <h3>Fashion News</h3>
+            <div class="news-card">
+                <p><b>Nike x Travis Scott:</b> Новая расцветка "Olive" выходит на этой неделе.</p>
+                <small>2 часа назад</small>
+            </div>
+            <div class="news-card">
+                <p><b>Balenciaga:</b> Демна Гвасалия представил коллекцию Осень 2025.</p>
+                <small>Вчера</small>
+            </div>
         </div>
         
-        <button class="main-btn" onclick="goToScreen('screen-instructions')">
+        <button class="glassy-main-btn" onclick="goToScreen('screen-instructions')">
             НАЧАТЬ ПРОВЕРКУ
         </button>
     </div>
@@ -34,14 +58,13 @@
             <ul>
                 <li>Нажми <b>"Загрузить фото"</b></li>
                 <li>Выбери тип вещи <br><small>(Например: Обувь, Худи, Футболка)</small></li>
-                <li>Загрузи 5-9 фото</li>
-                <li>Нажми <b>"Оплатить"</b> + выбери способ оплаты.</li>
-                <li>AI + Эксперт проверят твой товар в порядке очереди.</li>
+                <li>Загрузи 5-9 фото <br><small>(Бирки, швы, логотип, общий вид)</small></li>
+                <li>Нажми <b>"Оплатить"</b> (200 Stars).</li>
                 <li>Вердикт придет прямо в этот чат.</li>
             </ul>
         </div>
 
-        <button class="main-btn" onclick="goToScreen('screen-categories')">
+        <button class="glassy-main-btn" onclick="goToScreen('screen-categories')">
             Загрузить фото
         </button>
     </div>
@@ -85,7 +108,7 @@
     </div>
 
     <div id="screen-plans" class="screen">
-        <h2>История проверок</h2>
+        <h2 style="margin-bottom: 20px;">История проверок</h2>
         <div class="history-list">
             <div class="history-item">
                 <div class="history-icon"><i class="fa-solid fa-shoe-prints"></i></div>
@@ -115,7 +138,7 @@
 
         <div class="stats-row">
             <div class="stat-box">
-                <span class="stat-num">0</span>
+                <span class="stat-num">2</span>
                 <span class="stat-label">Проверок</span>
             </div>
             <div class="stat-box">
@@ -133,7 +156,26 @@
             </div>
         </div>
     </div>
+    
+    <div id="screen-progress" class="screen">
+         <h1>Analytics</h1>
+         <div class="chart-container"><canvas id="weight-chart"></canvas></div>
+    </div>
 
+    <div id="nexa-chat-screen" class="screen">
+        <div class="back-header">
+             <i class="fa-solid fa-circle-left back-btn" onclick="goToScreen('screen-home')"></i>
+             <span>Nexa AI</span>
+        </div>
+        <div id="chat-messages">
+            <div class="chat-message ai">Welcome to Nexa Chat. How can I help you?</div>
+        </div>
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask Nexa...">
+            <button id="chat-send-button">Send</button>
+        </div>
+    </div>
+    
     <div id="screen-premium" class="screen">
         <div class="premium-card">
             <h2>PRX PREMIUM</h2>
@@ -147,11 +189,13 @@
 
             <div class="price-tag">2500 Stars / месяц</div>
             
-            <button class="main-btn premium-btn">
+            <button class="glassy-main-btn" style="margin-bottom: 0;">
                 ОФОРМИТЬ ПОДПИСКУ
             </button>
         </div>
     </div>
+
+    <div id="mini-timer" onclick="goToScreen('screen-home')"><span id="mini-timer-text">PRX</span></div>
 
     <div class="tab-bar">
         <div class="tab-item" onclick="goToScreen('screen-profile')">

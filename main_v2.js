@@ -79,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (user) {
         const nameElement = document.getElementById('user-name');
         if (nameElement) {
-            // Берем имя, если фамилии нет - только имя
             nameElement.textContent = user.first_name + (user.last_name ? " " + user.last_name : "");
         }
     }
