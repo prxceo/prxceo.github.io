@@ -7,210 +7,79 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
     <header>
-        <svg id="profile-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f0f0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="goToScreen('screen-profile')">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-        
-        <img id="app-logo" src="images/prx-logo.jpg" alt="PRX Logo"> 
-        
-        <svg id="ai-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f0f0f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="goToScreen('nexa-chat-screen')">
-            <path d="M12 2a4 4 0 0 0-4 4c0 1.48.8 2.77 2 3.46V12c0 1.1.9 2 2 2s2-.9 2-2V9.46c1.2-.69 2-1.98 2-3.46a4 4 0 0 0-4-4z"/>
-            <path d="M14 12v1.5c0 .28-.22.5-.5.5h-3c-.28 0-.5-.22-.5-.5V12"/>
-            <path d="M4.5 10.5c-1.12 0-2 .9-2 2v3c0 1.1.9 2 2 2h1.28"/>
-            <path d="M18.22 17.5H19.5c1.1 0 2-.9 2-2v-3c0-1.1-.88-2-2-2"/>
-            <path d="M16 13h-2v1.5c0 .28-.22.5-.5.5h-3c-.28 0-.5-.22-.5-.5V13H8"/>
-            <path d="M16 17H8"/>
-        </svg>
+        <img id="app-logo" src="images/prx-logo.jpg" alt="PRX">
     </header>
 
     <div id="screen-home" class="screen active">
         
         <div class="news-feed-container">
-            <h3>Fashion News</h3>
+            <h3>FASHION NEWS</h3>
+            
             <div class="news-card">
-                <p><b>Nike x Travis Scott:</b> Новая расцветка "Olive" выходит на этой неделе.</p>
-                <small>2 часа назад</small>
+                <div class="news-icon"><i class="fa-brands fa-nike"></i></div>
+                <div class="news-content">
+                    <p>Nike x Travis Scott "Olive"</p>
+                    <small>Drop: Tomorrow</small>
+                </div>
             </div>
+            
             <div class="news-card">
-                <p><b>Balenciaga:</b> Демна Гвасалия представил коллекцию Осень 2025.</p>
-                <small>Вчера</small>
+                <div class="news-icon"><i class="fa-solid fa-shirt"></i></div>
+                <div class="news-content">
+                    <p>Balenciaga Fall 2025</p>
+                    <small>New Collection</small>
+                </div>
             </div>
         </div>
         
-        <button class="glassy-main-btn" onclick="goToScreen('screen-instructions')">
+        <button class="glassy-btn-large" onclick="goToScreen('screen-instructions')">
             НАЧАТЬ ПРОВЕРКУ
         </button>
     </div>
 
     <div id="screen-instructions" class="screen">
         <div class="back-header">
-            <i class="fa-solid fa-circle-left back-btn" onclick="goToScreen('screen-home')"></i>
+            <i class="fa-solid fa-chevron-left back-btn" onclick="goToScreen('screen-home')"></i>
         </div>
-        
         <div class="info-card">
-            <h3>Как это работает:</h3>
+            <h3>INSTRUCTIONS</h3>
             <ul>
-                <li>Нажми <b>"Загрузить фото"</b></li>
-                <li>Выбери тип вещи <br><small>(Например: Обувь, Худи, Футболка)</small></li>
-                <li>Загрузи 5-9 фото <br><small>(Бирки, швы, логотип, общий вид)</small></li>
-                <li>Нажми <b>"Оплатить"</b> (200 Stars).</li>
-                <li>Вердикт придет прямо в этот чат.</li>
+                <li>1. Нажми <b>"Загрузить фото"</b></li>
+                <li>2. Выбери категорию</li>
+                <li>3. Загрузи 5-8 фото</li>
+                <li>4. Оплати проверку</li>
             </ul>
         </div>
-
-        <button class="glassy-main-btn" onclick="goToScreen('screen-categories')">
+        <button class="glassy-btn-large" onclick="goToScreen('screen-categories')">
             Загрузить фото
         </button>
     </div>
 
     <div id="screen-categories" class="screen">
         <div class="back-header">
-            <i class="fa-solid fa-circle-left back-btn" onclick="goToScreen('screen-instructions')"></i>
-            <span>Выбери тип вещи</span>
+            <i class="fa-solid fa-chevron-left back-btn" onclick="goToScreen('screen-instructions')"></i>
+            <span>SELECT ITEM</span>
         </div>
-
         <div class="grid-container">
-            <div class="grid-item" onclick="selectCategory('Sneakers', this)">
-                <i class="fa-solid fa-shoe-prints"></i>
-                <span>Sneakers</span>
-            </div>
-            <div class="grid-item" onclick="selectCategory('Hoodie', this)">
-                <i class="fa-solid fa-user-ninja"></i>
-                <span>Hoodie</span>
-            </div>
-            <div class="grid-item" onclick="selectCategory('T-Shirt', this)">
-                <i class="fa-solid fa-shirt"></i>
-                <span>T-Shirt</span>
-            </div>
-            <div class="grid-item" onclick="selectCategory('Cap', this)">
-                <i class="fa-brands fa-redhat"></i>
-                <span>Cap</span>
-            </div>
-             <div class="grid-item" onclick="selectCategory('Bag', this)">
-                <i class="fa-solid fa-briefcase"></i>
-                <span>Bag</span>
-            </div>
-             <div class="grid-item" onclick="selectCategory('Other', this)">
-                <i class="fa-solid fa-layer-group"></i>
-                <span>Other</span>
-            </div>
+            <div class="grid-item" onclick="selectCategory('Sneakers', this)"><i class="fa-solid fa-shoe-prints"></i><span>Sneakers</span></div>
+            <div class="grid-item" onclick="selectCategory('Hoodie', this)"><i class="fa-solid fa-user-ninja"></i><span>Hoodie</span></div>
+            <div class="grid-item" onclick="selectCategory('T-Shirt', this)"><i class="fa-solid fa-shirt"></i><span>T-Shirt</span></div>
+            <div class="grid-item" onclick="selectCategory('Bag', this)"><i class="fa-solid fa-briefcase"></i><span>Bag</span></div>
         </div>
-
-        <button id="next-btn-cat" class="next-arrow-btn">
-            CONTINUE <i class="fa-solid fa-arrow-right"></i>
-        </button>
+        <button id="next-btn-cat" class="next-arrow-btn">CONTINUE</button>
     </div>
 
-    <div id="screen-plans" class="screen">
-        <h2 style="margin-bottom: 20px;">История проверок</h2>
-        <div class="history-list">
-            <div class="history-item">
-                <div class="history-icon"><i class="fa-solid fa-shoe-prints"></i></div>
-                <div class="history-info">
-                    <div class="history-title">Jordan 1 Mocha</div>
-                    <div class="history-date">Сегодня</div>
-                </div>
-                <div class="history-status status-legit">LEGIT</div>
-            </div>
-            <div class="history-item">
-                <div class="history-icon"><i class="fa-solid fa-shirt"></i></div>
-                <div class="history-info">
-                    <div class="history-title">Supreme Box Logo</div>
-                    <div class="history-date">Вчера</div>
-                </div>
-                <div class="history-status status-fake">FAKE</div>
-            </div>
-        </div>
-    </div>
-
-    <div id="screen-profile" class="screen">
-        <div class="profile-header">
-            <div class="avatar-placeholder"><i class="fa-regular fa-user"></i></div>
-            <h2 id="user-name">Loading...</h2>
-            <span class="user-status">Free User</span>
-        </div>
-
-        <div class="stats-row">
-            <div class="stat-box">
-                <span class="stat-num">2</span>
-                <span class="stat-label">Проверок</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-num">0</span>
-                <span class="stat-label">Бонусы</span>
-            </div>
-        </div>
-
-        <div class="profile-menu">
-            <div class="menu-item">
-                <i class="fa-solid fa-circle-question"></i> Поддержка
-            </div>
-            <div class="menu-item">
-                <i class="fa-solid fa-gear"></i> Настройки
-            </div>
-        </div>
-    </div>
-    
-    <div id="screen-progress" class="screen">
-         <h1>Analytics</h1>
-         <div class="chart-container"><canvas id="weight-chart"></canvas></div>
-    </div>
-
-    <div id="nexa-chat-screen" class="screen">
-        <div class="back-header">
-             <i class="fa-solid fa-circle-left back-btn" onclick="goToScreen('screen-home')"></i>
-             <span>Nexa AI</span>
-        </div>
-        <div id="chat-messages">
-            <div class="chat-message ai">Welcome to Nexa Chat. How can I help you?</div>
-        </div>
-        <div id="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Ask Nexa...">
-            <button id="chat-send-button">Send</button>
-        </div>
-    </div>
-    
-    <div id="screen-premium" class="screen">
-        <div class="premium-card">
-            <h2>PRX PREMIUM</h2>
-            <p class="sub-text">Безлимитные проверки и приоритет</p>
-            
-            <ul class="premium-features">
-                <li><i class="fa-solid fa-check"></i> Ответ за 15 минут</li>
-                <li><i class="fa-solid fa-check"></i> Детальный отчет</li>
-                <li><i class="fa-solid fa-check"></i> Связь с экспертом 24/7</li>
-            </ul>
-
-            <div class="price-tag">2500 Stars / месяц</div>
-            
-            <button class="glassy-main-btn" style="margin-bottom: 0;">
-                ОФОРМИТЬ ПОДПИСКУ
-            </button>
-        </div>
-    </div>
-
-    <div id="mini-timer" onclick="goToScreen('screen-home')"><span id="mini-timer-text">PRX</span></div>
-
-    <div class="tab-bar">
-        <div class="tab-item" onclick="goToScreen('screen-profile')">
-            <i class="fa-regular fa-user"></i>
-        </div>
-        <div class="tab-item active" onclick="goToScreen('screen-home')">
-            <i class="fa-solid fa-house"></i>
-        </div>
-        <div class="tab-item" onclick="goToScreen('screen-plans')">
-             <i class="fa-regular fa-calendar-check"></i>
-        </div>
-        <div class="tab-item" onclick="goToScreen('screen-premium')">
-            <span class="premium-text">PRX<br>PREMIUM</span>
-        </div>
-    </div>
+    <footer>
+        <nav>
+            <a class="nav-item" onclick="alert('Profile')"><i class="fa-regular fa-user"></i></a>
+            <a class="nav-item active" onclick="goToScreen('screen-home')"><i class="fa-solid fa-house"></i></a>
+            <a class="nav-item" onclick="alert('Premium')"><i class="fa-regular fa-star"></i></a>
+        </nav>
+    </footer>
 
     <script src="main_v2.js"></script>
 </body>
