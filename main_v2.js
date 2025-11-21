@@ -1,78 +1,75 @@
 const tg = window.Telegram.WebApp;
-tg.expand(); // Раскрываем на весь экран
+tg.expand();
 
-let selectedCategory = "";
+let currentCategory = "";
 
-// --- НАВИГАЦИЯ ПО ВКЛАДКАМ (Bottom Bar) ---
+// 1. Логика нижней навигации (Tab Bar)
 function switchTab(tabName) {
-    // 1. Сбрасываем активность всех кнопок меню
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    // Убираем активный класс с иконок
+    document.querySelectorAll('.nav-icon').forEach(el => el.classList.remove('active'));
     
-    // 2. Скрываем все экраны
+    // Скрываем все экраны
     document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
 
-    // 3. Активируем нужную вкладку
+    // Показываем нужный
     if (tabName === 'home') {
         document.getElementById('screen-home').classList.add('active');
-        // Находим кнопку Home и делаем активной (по индексу или селектору)
-        document.querySelectorAll('.nav-item')[0].classList.add('active');
-    } else if (tabName === 'premium') {
-        document.getElementById('screen-premium').classList.add('active');
-        document.querySelectorAll('.nav-item')[1].classList.add('active');
+        document.querySelectorAll('.nav-icon')[1].classList.add('active');
+        showNav(true);
     } else if (tabName === 'profile') {
         document.getElementById('screen-profile').classList.add('active');
-        document.querySelectorAll('.nav-item')[2].classList.add('active');
+        document.querySelectorAll('.nav-icon')[0].classList.add('active');
+        showNav(true);
+    } else if (tabName === 'premium') {
+        document.getElementById('screen-premium').classList.add('active');
+        document.querySelectorAll('.nav-icon')[3].classList.add('active');
+        showNav(true);
+    } else if (tabName === 'history') {
+        // Историю пока оставим пустой или сделаем заглушку
+        alert("Раздел истории в разработке");
+        switchTab('home'); 
     }
 }
 
-// --- ЛОГИКА ПРОВЕРКИ (Focus Mode) ---
-function startFlow() {
-    // Скрываем нижнюю панель, чтобы не отвлекала
-    document.querySelector('.bottom-nav').classList.add('hidden');
-    goToScreen('screen-instruction');
-}
-
-function goHome() {
-    // Возвращаем нижнюю панель
-    document.querySelector('.bottom-nav').classList.remove('hidden');
-    switchTab('home');
-}
-
+// 2. Логика переходов внутри процесса проверки (Flow)
 function goToScreen(screenId) {
-    // Утилита для переключения между экранами внутри процесса проверки
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    // Скрываем все экраны
+    document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+    // Показываем целевой экран
     document.getElementById(screenId).classList.add('active');
+
+    // Если мы внутри процесса проверки, скрываем нижнее меню
+    if (screenId === 'screen-home' || screenId === 'screen-profile' || screenId === 'screen-premium') {
+        showNav(true);
+    } else {
+        showNav(false);
+    }
 }
 
-function selectCategory(category) {
-    selectedCategory = category;
-    document.getElementById('cat-title').innerText = "Check: " + category;
+function showNav(visible) {
+    const nav = document.getElementById('main-nav');
+    nav.style.display = visible ? 'flex' : 'none';
+}
+
+// 3. Выбор категории
+function selectCategory(cat) {
+    currentCategory = cat;
+    // Визуально можно выделить (пока просто переход)
+    // alert("Выбрано: " + cat); 
+    // В эскизе нет явного перехода сразу, там кнопка со стрелкой.
+    // Но сделаем, что клик по иконке подсвечивает её (можно доработать CSS), пока просто перекинем.
     goToScreen('screen-upload');
 }
 
-// --- ЗАГРУЗКА ФОТО ---
-const dropZone = document.getElementById('drop-zone');
-const fileInput = document.getElementById('file-input');
-
-dropZone.addEventListener('click', () => fileInput.click());
-
-fileInput.addEventListener('change', function() {
-    if (this.files.length > 0) {
-        dropZone.innerHTML = `<i class="fas fa-check" style="color: #00f2ff"></i> <p>${this.files.length} фото выбрано</p>`;
-    }
-});
-
-function submitData() {
-    if (!selectedCategory) {
-        tg.showAlert("Ошибка: Категория не выбрана");
-        return;
-    }
-
-    // Демонстрация отправки (в реале здесь отправка на сервер или боту)
-    const data = {
-        category: selectedCategory,
-        action: "verification_request"
-    };
-
-    tg.sendData(JSON.stringify(data)); // Отправляем данные боту
+// 4. Оплата и финиш
+function processPayment() {
+    // Здесь будет логика Stars, пока просто имитация
+    goToScreen('screen-success');
 }
+
+function finishFlow() {
+    switchTab('home');
+}
+
+// Запуск
+switchTab('home');
