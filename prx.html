@@ -17,7 +17,6 @@
     <div id="screen-home" class="screen active">
         <div class="news-section">
             <div class="section-label">FASHION WEEK</div>
-            
             <div class="news-carousel">
                 <div class="news-card">
                     <img src="https://source.unsplash.com/random/300x300?fashion" alt="News 1">
@@ -94,12 +93,47 @@
         <h2 class="page-title" id="upload-title">Загрузка фото</h2>
 
         <div class="upload-grid">
-            <div class="upload-item">Бирка</div>
-            <div class="upload-item">Лого</div>
-            <div class="upload-item">Швы</div>
-            <div class="upload-item">Внутренний<br>материал</div>
-            <div class="upload-item">Подошва</div>
-            <div class="upload-item">Целиком</div>
+            <div class="upload-item" onclick="triggerUpload('file-tag')">
+                <span>Бирка</span>
+                <img id="preview-tag" class="uploaded-img">
+                <i id="check-tag" class="fas fa-check-circle check-icon"></i>
+                <input type="file" id="file-tag" hidden accept="image/*" onchange="previewImage(this, 'preview-tag', 'check-tag')">
+            </div>
+
+            <div class="upload-item" onclick="triggerUpload('file-logo')">
+                <span>Лого</span>
+                <img id="preview-logo" class="uploaded-img">
+                <i id="check-logo" class="fas fa-check-circle check-icon"></i>
+                <input type="file" id="file-logo" hidden accept="image/*" onchange="previewImage(this, 'preview-logo', 'check-logo')">
+            </div>
+
+            <div class="upload-item" onclick="triggerUpload('file-stitch')">
+                <span>Швы</span>
+                <img id="preview-stitch" class="uploaded-img">
+                <i id="check-stitch" class="fas fa-check-circle check-icon"></i>
+                <input type="file" id="file-stitch" hidden accept="image/*" onchange="previewImage(this, 'preview-stitch', 'check-stitch')">
+            </div>
+
+            <div class="upload-item" onclick="triggerUpload('file-inside')">
+                <span>Внутри</span>
+                <img id="preview-inside" class="uploaded-img">
+                <i id="check-inside" class="fas fa-check-circle check-icon"></i>
+                <input type="file" id="file-inside" hidden accept="image/*" onchange="previewImage(this, 'preview-inside', 'check-inside')">
+            </div>
+
+            <div class="upload-item" onclick="triggerUpload('file-sole')">
+                <span>Подошва</span>
+                <img id="preview-sole" class="uploaded-img">
+                <i id="check-sole" class="fas fa-check-circle check-icon"></i>
+                <input type="file" id="file-sole" hidden accept="image/*" onchange="previewImage(this, 'preview-sole', 'check-sole')">
+            </div>
+
+            <div class="upload-item" onclick="triggerUpload('file-full')">
+                <span>Целиком</span>
+                <img id="preview-full" class="uploaded-img">
+                <i id="check-full" class="fas fa-check-circle check-icon"></i>
+                <input type="file" id="file-full" hidden accept="image/*" onchange="previewImage(this, 'preview-full', 'check-full')">
+            </div>
         </div>
 
         <button class="outline-btn pay-btn" onclick="processPayment()">Оплатить</button>
@@ -193,8 +227,6 @@
             <p><strong>2. Бирка (Size Tag)</strong><br>Сделайте четкое фото размерной бирки внутри. Текст должен быть читаем.</p>
             <br>
             <p><strong>3. Логотип</strong><br>Сфотографируйте логотип крупным планом.</p>
-            <br>
-            <p>Если фото будут размыты, эксперт запросит их повторно.</p>
         </div>
     </div>
 

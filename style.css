@@ -16,7 +16,41 @@ body {
     overflow: hidden;
 }
 
-/* --- GENERAL UTILS --- */
+/* --- ANIMATIONS (Плавность iOS) --- */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px); /* Выезжает справа */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.screen {
+    display: none;
+    height: 100vh;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding-bottom: 90px;
+}
+
+.screen.active {
+    display: flex;
+    /* Применяем анимацию при появлении экрана */
+    animation: slideIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.screen.center-content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* --- HEADER --- */
 .app-header {
     text-align: center;
     padding-top: 10px;
@@ -27,26 +61,6 @@ body {
     font-weight: 900;
     font-size: 24px;
     letter-spacing: 2px;
-    text-align: center;
-}
-
-.screen {
-    display: none;
-    height: 100vh;
-    flex-direction: column;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    padding-bottom: 90px; /* Место для меню */
-}
-
-.screen.active {
-    display: flex;
-}
-
-.screen.center-content {
-    justify-content: center;
-    align-items: center;
     text-align: center;
 }
 
@@ -121,7 +135,7 @@ body {
 .news-text span { font-size: 10px; font-weight: bold; }
 .news-text p { margin: 5px 0 0; font-size: 14px; font-weight: bold; line-height: 1.2; }
 
-/* --- START PAGE INFO & FULL INSTRUCTION --- */
+/* --- INFO & INSTRUCTION --- */
 .info-box {
     border: 1px solid white;
     border-radius: 20px;
@@ -135,7 +149,7 @@ body {
 .sub-text { font-size: 10px; color: #aaa; display: block; margin-top: 3px; }
 .info-footer { margin-top: 20px; font-size: 12px; color: #fff; }
 
-/* --- CATEGORY GRID --- */
+/* --- CATEGORIES --- */
 .category-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -175,7 +189,7 @@ body {
     cursor: pointer;
 }
 
-/* --- UPLOAD GRID --- */
+/* --- UPLOAD GRID (MODIFIED) --- */
 .upload-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -183,6 +197,7 @@ body {
     width: 100%;
     margin-top: 20px;
 }
+
 .upload-item {
     border: 1px solid white;
     border-radius: 15px;
@@ -193,14 +208,47 @@ body {
     text-align: center;
     font-size: 14px;
     cursor: pointer;
+    position: relative; /* Важно для картинки */
+    overflow: hidden;
+    background: #000;
+    transition: transform 0.1s;
 }
+
+.upload-item:active {
+    transform: scale(0.98);
+}
+
+/* Стили для загруженного фото */
+.uploaded-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Поверх текста */
+    display: none; /* Скрыто по умолчанию */
+}
+
+/* Стили для галочки */
+.check-icon {
+    position: absolute;
+    z-index: 2;
+    font-size: 24px;
+    color: #30d158; /* Apple Green */
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    padding: 5px;
+    display: none; /* Скрыто по умолчанию */
+}
+
 .pay-btn { width: 100%; margin-top: 40px; }
 
-/* --- SUCCESS PAGE --- */
+/* --- SUCCESS --- */
 .success-title { font-size: 28px; letter-spacing: 1px; margin-bottom: 10px; }
 .queue-text { color: #666; margin: 30px 0; }
 
-/* --- PROFILE & PREMIUM --- */
+/* --- PROFILE --- */
 .page-header { text-align: center; margin-bottom: 20px; color: #ccc; font-weight: normal; }
 
 .profile-card, .premium-card {
@@ -225,12 +273,11 @@ body {
 .stat-num { font-size: 24px; font-weight: bold; }
 .stat-label { font-size: 12px; color: #666; }
 
-/* КНОПКИ В ПРОФИЛЕ С ОТСТУПАМИ */
 .profile-menu-list {
     margin-top: 35px;
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Ключевой параметр: расстояние между кнопками */
+    gap: 20px; 
 }
 
 .menu-btn {
@@ -259,6 +306,7 @@ body {
     text-align: center;
 }
 
+/* --- PREMIUM --- */
 .main-prem { border: none; background: #1c1c1e; }
 .grey-btn { background: #444; color: white; border: none; padding: 15px; width: 100%; border-radius: 25px; margin-top: 15px; font-weight: bold; }
 .prem-list { text-align: left; list-style: none; padding: 0; margin: 20px 0; }
