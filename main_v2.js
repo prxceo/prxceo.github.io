@@ -16,33 +16,44 @@ function switchTab(tabName) {
         document.getElementById('screen-home').classList.add('active');
         document.querySelectorAll('.nav-icon')[1].classList.add('active');
         showNav(true);
+        showHeader(true);
     } else if (tabName === 'profile') {
         document.getElementById('screen-profile').classList.add('active');
         document.querySelectorAll('.nav-icon')[0].classList.add('active');
         showNav(true);
+        showHeader(false); // В профиле логотип можно скрыть или оставить, пока скроем
     } else if (tabName === 'premium') {
         document.getElementById('screen-premium').classList.add('active');
         document.querySelectorAll('.nav-icon')[3].classList.add('active');
         showNav(true);
+        showHeader(false);
     } else if (tabName === 'history') {
-        // Историю пока оставим пустой или сделаем заглушку
-        alert("Раздел истории в разработке");
+        tg.showAlert("История пуста");
         switchTab('home'); 
     }
 }
 
-// 2. Логика переходов внутри процесса проверки (Flow)
+// 2. Логика переходов по экранам (Flow)
 function goToScreen(screenId) {
     // Скрываем все экраны
     document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
     // Показываем целевой экран
     document.getElementById(screenId).classList.add('active');
 
-    // Если мы внутри процесса проверки, скрываем нижнее меню
+    // ЛОГИКА ОТОБРАЖЕНИЯ НИЖНЕГО МЕНЮ
+    // Если мы на главных вкладках (Home, Profile, Premium) - меню есть.
+    // Если мы внутри проверки или в Инструкции - меню нет.
     if (screenId === 'screen-home' || screenId === 'screen-profile' || screenId === 'screen-premium') {
         showNav(true);
     } else {
         showNav(false);
+    }
+    
+    // Логотип показываем только на Home (по желанию)
+    if (screenId === 'screen-home') {
+        showHeader(true);
+    } else {
+        showHeader(false);
     }
 }
 
@@ -51,19 +62,21 @@ function showNav(visible) {
     nav.style.display = visible ? 'flex' : 'none';
 }
 
+function showHeader(visible) {
+    const header = document.getElementById('main-header');
+    if (header) {
+        header.style.display = visible ? 'block' : 'none';
+    }
+}
+
 // 3. Выбор категории
 function selectCategory(cat) {
     currentCategory = cat;
-    // Визуально можно выделить (пока просто переход)
-    // alert("Выбрано: " + cat); 
-    // В эскизе нет явного перехода сразу, там кнопка со стрелкой.
-    // Но сделаем, что клик по иконке подсвечивает её (можно доработать CSS), пока просто перекинем.
     goToScreen('screen-upload');
 }
 
 // 4. Оплата и финиш
 function processPayment() {
-    // Здесь будет логика Stars, пока просто имитация
     goToScreen('screen-success');
 }
 
@@ -71,5 +84,5 @@ function finishFlow() {
     switchTab('home');
 }
 
-// Запуск
+// Запуск приложения
 switchTab('home');

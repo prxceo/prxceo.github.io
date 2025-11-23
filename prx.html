@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <div class="app-header">
+    <div class="app-header" id="main-header">
         <div class="prx-logo-text">PRX</div>
     </div>
 
@@ -48,7 +48,7 @@
             <h3>Как это работает:</h3>
             <p>Нажми "Загрузить фото"</p>
             <p>Выбери тип вещи<br><span class="sub-text">(Например: Обувь, Худи, Футболка)</span></p>
-            <p>Загрузи 6 фото своей вещи<br><span class="sub-text">(Ты можешь найти подробную инструкцию в своем профиле)</span></p>
+            <p>Загрузи 6 фото своей вещи<br><span class="sub-text">(Подробную инструкцию ищи в профиле)</span></p>
             <p>Нажми "Оплатить" и выбери способ оплаты.</p>
             <p>AI + Эксперт проверят твой товар.</p>
             <div class="info-footer">Вердикт придет в этот чат.</div>
@@ -66,7 +66,8 @@
                 <i class="fas fa-shoe-prints"></i>
             </div>
             <div class="cat-item" onclick="selectCategory('Hoodie')">
-                <i class="fas fa-user-astronaut"></i> </div>
+                <i class="fas fa-user-astronaut"></i>
+            </div>
             <div class="cat-item" onclick="selectCategory('TShirt')">
                 <i class="fas fa-tshirt"></i>
             </div>
@@ -74,7 +75,8 @@
                 <i class="fas fa-hat-baseball"></i>
             </div>
             <div class="cat-item" onclick="selectCategory('Pants')">
-                <i class="fas fa-socks"></i> </div>
+                <i class="fas fa-socks"></i>
+            </div>
             <div class="cat-item" onclick="selectCategory('Glasses')">
                 <i class="fas fa-glasses"></i>
             </div>
@@ -118,7 +120,7 @@
         <button class="outline-btn" onclick="finishFlow()">Готово</button>
     </div>
 
-    <<div id="screen-profile" class="screen">
+    <div id="screen-profile" class="screen">
         <div class="profile-card">
             <div class="avatar"><i class="far fa-user"></i></div>
             <h3>Loading...</h3>
@@ -137,17 +139,17 @@
         </div>
 
         <div class="profile-menu-list">
-            <div class="menu-btn" onclick="goToScreen('screen-start-check')">
+            <div class="menu-btn" onclick="goToScreen('screen-full-instruction')">
                 <i class="fas fa-book-open"></i>
                 <span>Инструкция</span>
             </div>
             
-            <div class="menu-btn" onclick="tg.showAlert('Поддержка скоро появится!')">
+            <div class="menu-btn" onclick="tg.showAlert('В разработке')">
                 <i class="far fa-question-circle"></i>
                 <span>Поддержка</span>
             </div>
             
-            <div class="menu-btn" onclick="tg.showAlert('Настройки скоро появятся!')">
+            <div class="menu-btn" onclick="tg.showAlert('В разработке')">
                 <i class="fas fa-cog"></i>
                 <span>Настройки</span>
             </div>
@@ -173,6 +175,26 @@
             <h4>PREMIUM PACK</h4>
             <p>500 Stars / 5 Проверок</p>
             <button class="grey-btn small">ОФОРМИТЬ ПОДПИСКУ</button>
+        </div>
+    </div>
+
+    <div id="screen-full-instruction" class="screen">
+        <div class="back-btn-top" onclick="goToScreen('screen-profile')">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <h2 class="page-title" style="margin-top: 40px;">База Знаний</h2>
+        
+        <div class="info-box" style="max-width: none; text-align: left; margin-top: 20px;">
+            <h3>Как делать фото?</h3>
+            <p>Чтобы проверка прошла успешно, следуйте этим правилам:</p>
+            <br>
+            <p><strong>1. Освещение</strong><br>Фотографируйте при дневном свете или ярком искусственном освещении.</p>
+            <br>
+            <p><strong>2. Бирка (Size Tag)</strong><br>Сделайте четкое фото размерной бирки внутри. Текст должен быть читаем.</p>
+            <br>
+            <p><strong>3. Логотип</strong><br>Сфотографируйте логотип крупным планом.</p>
+            <br>
+            <p>Если фото будут размыты, эксперт запросит их повторно.</p>
         </div>
     </div>
 
