@@ -118,8 +118,7 @@
         <button class="outline-btn" onclick="finishFlow()">Готово</button>
     </div>
 
-    <div id="screen-profile" class="screen">
-        <h2 class="page-header">Profile Page</h2>
+    <<div id="screen-profile" class="screen">
         <div class="profile-card">
             <div class="avatar"><i class="far fa-user"></i></div>
             <h3>Loading...</h3>
@@ -137,8 +136,22 @@
             </div>
         </div>
 
-        <div class="menu-btn"><i class="far fa-question-circle"></i> Поддержка</div>
-        <div class="menu-btn"><i class="fas fa-cog"></i> Настройки</div>
+        <div class="profile-menu-list">
+            <div class="menu-btn" onclick="goToScreen('screen-start-check')">
+                <i class="fas fa-book-open"></i>
+                <span>Инструкция</span>
+            </div>
+            
+            <div class="menu-btn" onclick="tg.showAlert('Поддержка скоро появится!')">
+                <i class="far fa-question-circle"></i>
+                <span>Поддержка</span>
+            </div>
+            
+            <div class="menu-btn" onclick="tg.showAlert('Настройки скоро появятся!')">
+                <i class="fas fa-cog"></i>
+                <span>Настройки</span>
+            </div>
+        </div>
     </div>
 
     <div id="screen-premium" class="screen">
