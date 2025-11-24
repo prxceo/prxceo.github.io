@@ -34,123 +34,87 @@
                 </div>
             </div>
         </div>
-
-        <button class="outline-btn start-btn" onclick="goToScreen('screen-start-check')">
-            НАЧАТЬ ПРОВЕРКУ
-        </button>
+        <button class="outline-btn start-btn" onclick="goToScreen('screen-start-check')">НАЧАТЬ ПРОВЕРКУ</button>
     </div>
 
     <div id="screen-start-check" class="screen center-content">
         <div class="back-btn-top" onclick="goToScreen('screen-home')"><i class="fas fa-chevron-left"></i></div>
-        
         <div class="info-box">
             <h3>Как это работает:</h3>
-            <p>Нажми "Загрузить фото"</p>
-            <p>Выбери тип вещи<br><span class="sub-text">(Например: Обувь, Худи, Футболка)</span></p>
-            <p>Загрузи 6 фото своей вещи<br><span class="sub-text">(Подробную инструкцию ищи в профиле)</span></p>
-            <p>Нажми "Оплатить" и выбери способ оплаты.</p>
-            <p>AI + Эксперт проверят твой товар.</p>
+            <p>1. Выбери категорию вещи.</p>
+            <p>2. Загрузи от 6 до 10 фотографий (Бирки, швы, логотип).</p>
+            <p>3. Оплати проверку.</p>
             <div class="info-footer">Вердикт придет в этот чат.</div>
         </div>
-
-        <button class="outline-btn" onclick="goToScreen('screen-category')">Загрузить фото</button>
+        <button class="outline-btn" onclick="goToScreen('screen-category')">Выбрать вещь</button>
     </div>
 
     <div id="screen-category" class="screen">
         <div class="back-btn-top" onclick="goToScreen('screen-start-check')"><i class="fas fa-chevron-left"></i></div>
-        <h2 class="page-title">Выбери тип вещи</h2>
+        
+        <h2 class="page-title category-title">Выбери тип вещи</h2>
         
         <div class="category-grid">
-            <div class="cat-item" onclick="selectCategory('Sneakers')">
+            <div class="cat-item" onclick="selectItem(this, 'Sneakers')">
                 <i class="fas fa-shoe-prints"></i>
+                <span class="cat-label">Sneakers</span>
             </div>
-            <div class="cat-item" onclick="selectCategory('Hoodie')">
-                <i class="fas fa-user-astronaut"></i>
+            <div class="cat-item" onclick="selectItem(this, 'Hoodie')">
+                <i class="fas fa-vest"></i> <span class="cat-label">Hoodie</span>
             </div>
-            <div class="cat-item" onclick="selectCategory('TShirt')">
-                <i class="fas fa-tshirt"></i>
+            <div class="cat-item" onclick="selectItem(this, 'TShirt')">
+                <i class="fas fa-shirt"></i>
+                <span class="cat-label">T-Shirt</span>
             </div>
-            <div class="cat-item" onclick="selectCategory('Cap')">
+            <div class="cat-item" onclick="selectItem(this, 'Cap')">
                 <i class="fas fa-hat-baseball"></i>
+                <span class="cat-label">Cap</span>
             </div>
-            <div class="cat-item" onclick="selectCategory('Pants')">
-                <i class="fas fa-socks"></i>
+            <div class="cat-item" onclick="selectItem(this, 'Pants')">
+                <i class="fas fa-person-running"></i>
+                <span class="cat-label">Pants</span>
             </div>
-            <div class="cat-item" onclick="selectCategory('Glasses')">
+            <div class="cat-item" onclick="selectItem(this, 'Glasses')">
                 <i class="fas fa-glasses"></i>
+                <span class="cat-label">Accessory</span>
             </div>
         </div>
 
-        <div class="other-cat-btn">Другое</div>
+        <div class="cat-item other-btn" onclick="selectItem(this, 'Other')">
+            <span>Другое</span>
+        </div>
         
-        <div class="next-arrow" onclick="goToScreen('screen-upload')">
+        <div class="next-arrow disabled" id="cat-next-btn" onclick="goToUploadIfSelected()">
             <i class="fas fa-angle-double-right"></i>
         </div>
     </div>
 
     <div id="screen-upload" class="screen">
         <div class="back-btn-top" onclick="goToScreen('screen-category')"><i class="fas fa-chevron-left"></i></div>
-        <h2 class="page-title" id="upload-title">Загрузка фото</h2>
+        <h2 class="page-title category-title">Загрузка фото</h2>
+        
+        <p class="upload-hint">Загрузите от 6 до 10 фото.<br>Обязательно: Бирки, Швы, Лого.</p>
 
-        <div class="upload-grid">
-            <div class="upload-item" onclick="triggerUpload('file-tag')">
-                <span>Бирка</span>
-                <img id="preview-tag" class="uploaded-img">
-                <i id="check-tag" class="fas fa-check-circle check-icon"></i>
-                <input type="file" id="file-tag" hidden accept="image/*" onchange="previewImage(this, 'preview-tag', 'check-tag')">
+        <div class="photo-gallery" id="photo-gallery">
             </div>
 
-            <div class="upload-item" onclick="triggerUpload('file-logo')">
-                <span>Лого</span>
-                <img id="preview-logo" class="uploaded-img">
-                <i id="check-logo" class="fas fa-check-circle check-icon"></i>
-                <input type="file" id="file-logo" hidden accept="image/*" onchange="previewImage(this, 'preview-logo', 'check-logo')">
-            </div>
-
-            <div class="upload-item" onclick="triggerUpload('file-stitch')">
-                <span>Швы</span>
-                <img id="preview-stitch" class="uploaded-img">
-                <i id="check-stitch" class="fas fa-check-circle check-icon"></i>
-                <input type="file" id="file-stitch" hidden accept="image/*" onchange="previewImage(this, 'preview-stitch', 'check-stitch')">
-            </div>
-
-            <div class="upload-item" onclick="triggerUpload('file-inside')">
-                <span>Внутри</span>
-                <img id="preview-inside" class="uploaded-img">
-                <i id="check-inside" class="fas fa-check-circle check-icon"></i>
-                <input type="file" id="file-inside" hidden accept="image/*" onchange="previewImage(this, 'preview-inside', 'check-inside')">
-            </div>
-
-            <div class="upload-item" onclick="triggerUpload('file-sole')">
-                <span>Подошва</span>
-                <img id="preview-sole" class="uploaded-img">
-                <i id="check-sole" class="fas fa-check-circle check-icon"></i>
-                <input type="file" id="file-sole" hidden accept="image/*" onchange="previewImage(this, 'preview-sole', 'check-sole')">
-            </div>
-
-            <div class="upload-item" onclick="triggerUpload('file-full')">
-                <span>Целиком</span>
-                <img id="preview-full" class="uploaded-img">
-                <i id="check-full" class="fas fa-check-circle check-icon"></i>
-                <input type="file" id="file-full" hidden accept="image/*" onchange="previewImage(this, 'preview-full', 'check-full')">
-            </div>
+        <div class="big-upload-btn" onclick="document.getElementById('file-input-bulk').click()">
+            <i class="fas fa-camera"></i>
+            <span>Добавить фото</span>
         </div>
+        
+        <input type="file" id="file-input-bulk" multiple accept="image/*" hidden onchange="handleBulkUpload(this)">
 
-        <button class="outline-btn pay-btn" onclick="processPayment()">Оплатить</button>
+        <div class="counter-text" id="photo-counter">Загружено: 0/10</div>
+
+        <button class="outline-btn pay-btn disabled" id="pay-btn" onclick="processPayment()">Оплатить</button>
     </div>
 
     <div id="screen-success" class="screen center-content">
         <div class="prx-logo-text">PRX</div>
         <h2 class="success-title">SUCCESS</h2>
-        
-        <p class="success-text">
-            ИИ + Специалист<br>проверят ваш товар в<br>порядке очереди.
-        </p>
-
-        <p class="queue-text">Ваше место в очереди: <span style="color: white;">23</span></p>
-        
-        <p class="sub-text small">PRX Агент пришлет вам вердикт в этот чат.</p>
-
+        <p class="success-text">ИИ + Специалист проверят ваш товар.</p>
+        <p class="queue-text">Ваше место в очереди: 23</p>
         <button class="outline-btn" onclick="finishFlow()">Готово</button>
     </div>
 
@@ -160,73 +124,37 @@
             <h3>Loading...</h3>
             <span class="badge">Free User</span>
         </div>
-
         <div class="stats-container">
-            <div class="stat-box">
-                <span class="stat-num">2</span>
-                <span class="stat-label">Проверок</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-num">0</span>
-                <span class="stat-label">Бонусы</span>
-            </div>
+            <div class="stat-box"><span class="stat-num">2</span><span class="stat-label">Проверок</span></div>
+            <div class="stat-box"><span class="stat-num">0</span><span class="stat-label">Бонусы</span></div>
         </div>
-
         <div class="profile-menu-list">
             <div class="menu-btn" onclick="goToScreen('screen-full-instruction')">
-                <i class="fas fa-book-open"></i>
-                <span>Инструкция</span>
+                <i class="fas fa-book-open"></i><span>Инструкция</span>
             </div>
-            
             <div class="menu-btn" onclick="tg.showAlert('В разработке')">
-                <i class="far fa-question-circle"></i>
-                <span>Поддержка</span>
+                <i class="far fa-question-circle"></i><span>Поддержка</span>
             </div>
-            
             <div class="menu-btn" onclick="tg.showAlert('В разработке')">
-                <i class="fas fa-cog"></i>
-                <span>Настройки</span>
+                <i class="fas fa-cog"></i><span>Настройки</span>
             </div>
         </div>
     </div>
 
     <div id="screen-premium" class="screen">
         <h2 class="page-header">PREMIUM PAGE</h2>
-        
         <div class="premium-card main-prem">
             <h3>PRX PREMIUM</h3>
-            <p class="sub-prem">Безлимитные проверки и приоритет</p>
-            <ul class="prem-list">
-                <li><i class="fas fa-check"></i> Ответ за 15 минут</li>
-                <li><i class="fas fa-check"></i> Детальный отчет</li>
-                <li><i class="fas fa-check"></i> Связь с экспертом 24/7</li>
-            </ul>
-            <div class="price">2500 Stars / месяц</div>
-            <button class="grey-btn">ОФОРМИТЬ ПОДПИСКУ</button>
-        </div>
-
-        <div class="premium-card pack-prem">
-            <h4>PREMIUM PACK</h4>
-            <p>500 Stars / 5 Проверок</p>
-            <button class="grey-btn small">ОФОРМИТЬ ПОДПИСКУ</button>
+            <p class="sub-prem">Безлимитные проверки</p>
+            <button class="grey-btn">ОФОРМИТЬ</button>
         </div>
     </div>
 
     <div id="screen-full-instruction" class="screen">
-        <div class="back-btn-top" onclick="goToScreen('screen-profile')">
-            <i class="fas fa-chevron-left"></i>
-        </div>
+        <div class="back-btn-top" onclick="goToScreen('screen-profile')"><i class="fas fa-chevron-left"></i></div>
         <h2 class="page-title" style="margin-top: 40px;">База Знаний</h2>
-        
-        <div class="info-box" style="max-width: none; text-align: left; margin-top: 20px;">
-            <h3>Как делать фото?</h3>
-            <p>Чтобы проверка прошла успешно, следуйте этим правилам:</p>
-            <br>
-            <p><strong>1. Освещение</strong><br>Фотографируйте при дневном свете или ярком искусственном освещении.</p>
-            <br>
-            <p><strong>2. Бирка (Size Tag)</strong><br>Сделайте четкое фото размерной бирки внутри. Текст должен быть читаем.</p>
-            <br>
-            <p><strong>3. Логотип</strong><br>Сфотографируйте логотип крупным планом.</p>
+        <div class="info-box" style="max-width: none; text-align: left;">
+            <p>Подробная инструкция...</p>
         </div>
     </div>
 

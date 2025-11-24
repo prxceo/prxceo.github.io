@@ -2,8 +2,6 @@
     --bg: #000000;
     --white: #ffffff;
     --grey: #1c1c1e;
-    --border: 1px solid #ffffff;
-    --border-radius: 15px;
 }
 
 body {
@@ -16,319 +14,131 @@ body {
     overflow: hidden;
 }
 
-/* --- ANIMATIONS (Плавность iOS) --- */
+/* Animations */
 @keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(20px); /* Выезжает справа */
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
 }
-
-.screen {
-    display: none;
-    height: 100vh;
-    flex-direction: column;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    padding-bottom: 90px;
-}
-
 .screen.active {
     display: flex;
-    /* Применяем анимацию при появлении экрана */
     animation: slideIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-.screen.center-content {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
+/* Utils */
+.screen { display: none; height: 100vh; flex-direction: column; padding: 20px; box-sizing: border-box; overflow-y: auto; padding-bottom: 90px; }
+.screen.center-content { justify-content: center; align-items: center; text-align: center; }
+.app-header { text-align: center; padding-top: 10px; }
+.prx-logo-text { font-family: 'Arial', sans-serif; font-weight: 900; font-size: 24px; letter-spacing: 2px; }
+.back-btn-top { position: absolute; top: 20px; left: 20px; font-size: 24px; cursor: pointer; z-index: 10; }
 
-/* --- HEADER --- */
-.app-header {
-    text-align: center;
-    padding-top: 10px;
-}
+/* Buttons */
+.outline-btn { background: transparent; border: 1px solid white; color: white; padding: 15px 40px; border-radius: 30px; font-size: 18px; margin-top: 20px; cursor: pointer; width: 80%; align-self: center; }
+.outline-btn:active { background: white; color: black; }
+.outline-btn.disabled { opacity: 0.3; pointer-events: none; } /* Стиль для неактивной кнопки */
 
-.prx-logo-text {
-    font-family: 'Arial', sans-serif;
-    font-weight: 900;
-    font-size: 24px;
-    letter-spacing: 2px;
-    text-align: center;
-}
-
-.back-btn-top {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 10;
-}
-
-/* --- BUTTONS --- */
-.outline-btn {
-    background: transparent;
-    border: 1px solid white;
-    color: white;
-    padding: 15px 40px;
-    border-radius: 30px;
-    font-size: 18px;
-    margin-top: 20px;
-    cursor: pointer;
-    width: 80%;
-    align-self: center;
-}
-
-.outline-btn:active {
-    background: white;
-    color: black;
-}
-
-/* --- HOME PAGE --- */
-.section-label {
-    text-align: center;
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-}
-
-.news-carousel {
-    display: flex;
-    overflow-x: auto;
-    gap: 15px;
-    padding: 10px 0;
-    scroll-snap-type: x mandatory;
-}
-
-.news-card {
-    min-width: 250px;
-    height: 350px;
-    background: #111;
-    border-radius: 10px;
-    position: relative;
-    scroll-snap-align: center;
-    overflow: hidden;
-    border: 1px solid #333;
-}
-
-.news-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.7;
-}
-
-.news-text {
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-}
-.news-text span { font-size: 10px; font-weight: bold; }
-.news-text p { margin: 5px 0 0; font-size: 14px; font-weight: bold; line-height: 1.2; }
-
-/* --- INFO & INSTRUCTION --- */
-.info-box {
-    border: 1px solid white;
-    border-radius: 20px;
-    padding: 30px 20px;
-    text-align: center;
-    margin-bottom: 30px;
-    max-width: 320px;
-}
-.info-box h3 { margin-top: 0; }
-.info-box p { font-size: 14px; margin: 15px 0; line-height: 1.4; }
-.sub-text { font-size: 10px; color: #aaa; display: block; margin-top: 3px; }
+/* Home & Info */
+.news-section { margin-bottom: 20px; }
+.news-carousel { display: flex; overflow-x: auto; gap: 15px; padding: 10px 0; }
+.news-card { min-width: 250px; height: 350px; background: #111; border-radius: 10px; position: relative; border: 1px solid #333; overflow: hidden; }
+.news-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+.news-text { position: absolute; bottom: 15px; left: 15px; }
+.info-box { border: 1px solid white; border-radius: 20px; padding: 30px 20px; text-align: center; margin-bottom: 30px; }
 .info-footer { margin-top: 20px; font-size: 12px; color: #fff; }
 
-/* --- CATEGORIES --- */
-.category-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 20px;
-    width: 100%;
+/* --- UPDATED CATEGORY PAGE --- */
+.category-title {
+    margin-top: 60px; /* Больше отступа от стрелки назад */
+    text-align: center;
+    margin-bottom: 20px;
 }
+
+.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
+
 .cat-item {
-    border: 1px solid white;
-    border-radius: 15px;
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    cursor: pointer;
-}
-.cat-item:hover { background: rgba(255,255,255,0.1); }
-.other-cat-btn {
-    border: 1px solid white;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    margin-top: 15px;
-    font-size: 12px;
-}
-.next-arrow {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 30px;
-    background: #333;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    border-radius: 10px;
-    margin: 20px auto 0 auto;
-    cursor: pointer;
-}
-
-/* --- UPLOAD GRID (MODIFIED) --- */
-.upload-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.upload-item {
     border: 1px solid white;
     border-radius: 15px;
     height: 100px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    font-size: 14px;
     cursor: pointer;
-    position: relative; /* Важно для картинки */
-    overflow: hidden;
-    background: #000;
-    transition: transform 0.1s;
+    transition: all 0.2s ease;
 }
 
-.upload-item:active {
+.cat-item i { font-size: 30px; margin-bottom: 10px; }
+.cat-label { font-size: 12px; font-weight: bold; }
+
+/* Стиль ВЫБРАННОЙ категории */
+.cat-item.selected {
+    background: white;
+    color: black;
+    border-color: white;
     transform: scale(0.98);
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
 }
 
-/* Стили для загруженного фото */
-.uploaded-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1; /* Поверх текста */
-    display: none; /* Скрыто по умолчанию */
-}
+.other-btn { margin-top: 15px; width: 100%; height: 60px; flex-direction: row; }
 
-/* Стили для галочки */
-.check-icon {
-    position: absolute;
-    z-index: 2;
-    font-size: 24px;
-    color: #30d158; /* Apple Green */
-    background: rgba(0,0,0,0.5);
-    border-radius: 50%;
-    padding: 5px;
-    display: none; /* Скрыто по умолчанию */
-}
-
-.pay-btn { width: 100%; margin-top: 40px; }
-
-/* --- SUCCESS --- */
-.success-title { font-size: 28px; letter-spacing: 1px; margin-bottom: 10px; }
-.queue-text { color: #666; margin: 30px 0; }
-
-/* --- PROFILE --- */
-.page-header { text-align: center; margin-bottom: 20px; color: #ccc; font-weight: normal; }
-
-.profile-card, .premium-card {
-    background: #111;
-    border: 1px solid #333;
-    padding: 20px;
-    border-radius: 15px;
+.next-arrow {
     text-align: center;
+    margin: 30px auto 0 auto;
+    font-size: 30px;
+    background: #222;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.next-arrow.active { background: white; color: black; } /* Активная стрелка */
+.next-arrow.disabled { opacity: 0.3; pointer-events: none; }
+
+/* --- UPDATED UPLOAD PAGE --- */
+.upload-hint { text-align: center; font-size: 12px; color: #aaa; margin-bottom: 20px; }
+
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 фото в ряд */
+    gap: 10px;
     margin-bottom: 20px;
+    min-height: 100px; /* Чтобы не прыгало */
 }
-.stats-container { display: flex; gap: 10px; }
-.stat-box { 
-    flex: 1; 
-    border: 1px solid #333; 
-    background: #111; 
-    border-radius: 10px; 
-    padding: 15px; 
-    text-align: center; 
-    display: flex; 
-    flex-direction: column; 
+
+.gallery-img {
+    width: 100%;
+    aspect-ratio: 1/1; /* Квадратные */
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #333;
 }
+
+.big-upload-btn {
+    border: 1px dashed #666;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    color: #aaa;
+    transition: 0.2s;
+}
+.big-upload-btn:active { background: #111; color: white; border-color: white; }
+.big-upload-btn i { font-size: 24px; display: block; margin-bottom: 5px; }
+
+.counter-text { text-align: center; margin-top: 15px; font-size: 14px; color: #666; }
+.pay-btn { width: 100%; margin-top: 20px; }
+
+/* Success, Profile, Nav - Standard */
+.profile-card, .premium-card { background: #111; border: 1px solid #333; padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; }
+.stats-container { display: flex; gap: 10px; margin-bottom: 20px; }
+.stat-box { flex: 1; border: 1px solid #333; background: #111; border-radius: 10px; padding: 15px; text-align: center; display: flex; flex-direction: column; }
 .stat-num { font-size: 24px; font-weight: bold; }
 .stat-label { font-size: 12px; color: #666; }
-
-.profile-menu-list {
-    margin-top: 35px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px; 
-}
-
-.menu-btn {
-    border: 1px solid #333;
-    background: #111;
-    padding: 18px 20px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: all 0.1s ease;
-}
-
-.menu-btn:active {
-    background-color: #222;
-    border-color: #555;
-    transform: scale(0.98);
-}
-
-.menu-btn i {
-    font-size: 22px;
-    color: #888;
-    width: 25px;
-    text-align: center;
-}
-
-/* --- PREMIUM --- */
-.main-prem { border: none; background: #1c1c1e; }
+.profile-menu-list { display: flex; flex-direction: column; gap: 20px; }
+.menu-btn { border: 1px solid #333; background: #111; padding: 18px 20px; border-radius: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; }
 .grey-btn { background: #444; color: white; border: none; padding: 15px; width: 100%; border-radius: 25px; margin-top: 15px; font-weight: bold; }
-.prem-list { text-align: left; list-style: none; padding: 0; margin: 20px 0; }
-.prem-list li { margin-bottom: 10px; font-size: 14px; }
-.prem-list i { color: #0a84ff; margin-right: 10px; }
-
-/* --- BOTTOM NAV --- */
-.bottom-nav {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    height: 70px;
-    background: #000;
-    border: 1px solid #444;
-    border-radius: 35px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 100;
-}
+.bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; height: 70px; background: #000; border: 1px solid #444; border-radius: 35px; display: flex; justify-content: space-around; align-items: center; z-index: 100; }
 .nav-icon { font-size: 20px; color: #666; cursor: pointer; }
 .nav-icon.active { color: white; }
 .tiny-text { font-size: 8px; line-height: 10px; display: block; text-align: center; font-weight: bold; }
