@@ -15,14 +15,15 @@
     </div>
 
     <div id="screen-home" class="screen active">
+        
         <div class="news-section">
             <div class="section-label">FASHION WEEK</div>
             <div class="news-carousel">
                 <div class="news-card">
-                    <img src="https://source.unsplash.com/random/300x300?fashion" alt="News 1">
+                    <img src="https://source.unsplash.com/random/300x300?runway" alt="News 1">
                     <div class="news-text">
-                        <span>RUNWAY</span>
-                        <p>When the Designer Becomes the Muse.</p>
+                        <span>TRENDS</span>
+                        <p>Paris Fashion Week Recap.</p>
                     </div>
                 </div>
                 <div class="news-card">
@@ -34,7 +35,27 @@
                 </div>
             </div>
         </div>
+
         <button class="outline-btn start-btn" onclick="goToScreen('screen-start-check')">НАЧАТЬ ПРОВЕРКУ</button>
+
+        <div class="community-section">
+            <div class="section-label">COMMUNITY</div>
+            
+            <div class="discord-btn" onclick="tg.openLink('https://discord.gg/yourlink')">
+                <div style="text-align: left;">
+                    <div style="font-weight: bold; font-size: 16px;">PRX CLUB</div>
+                    <div style="font-size: 10px; opacity: 0.8;">Чат, разборы, маркет</div>
+                </div>
+                <i class="fab fa-discord" style="font-size: 24px;"></i>
+            </div>
+
+            <div class="marketplace-teaser" onclick="tg.showAlert('Coming Q3 2025')">
+                <i class="fas fa-store"></i>
+                <div style="font-weight: bold; font-size: 14px;">PRX MARKET</div>
+                <div style="font-size: 10px;">Buy & Sell Verified Items</div>
+                <div style="font-size: 10px; margin-top: 5px; color: #888;">Скоро</div>
+            </div>
+        </div>
     </div>
 
     <div id="screen-start-check" class="screen center-content">
@@ -60,7 +81,8 @@
                 <span class="cat-label">Sneakers</span>
             </div>
             <div class="cat-item" onclick="selectItem(this, 'Hoodie')">
-                <i class="fas fa-vest"></i> <span class="cat-label">Hoodie</span>
+                <i class="fas fa-vest"></i>
+                <span class="cat-label">Hoodie</span>
             </div>
             <div class="cat-item" onclick="selectItem(this, 'TShirt')">
                 <i class="fas fa-shirt"></i>
@@ -125,8 +147,14 @@
             <span class="badge">Free User</span>
         </div>
         <div class="stats-container">
-            <div class="stat-box"><span class="stat-num">2</span><span class="stat-label">Проверок</span></div>
-            <div class="stat-box"><span class="stat-num">0</span><span class="stat-label">Бонусы</span></div>
+            <div class="stat-box">
+                <span class="stat-num">2</span>
+                <span class="stat-label">Проверок</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-num">0</span>
+                <span class="stat-label">Бонусы</span>
+            </div>
         </div>
         <div class="profile-menu-list">
             <div class="menu-btn" onclick="goToScreen('screen-full-instruction')">
@@ -142,11 +170,28 @@
     </div>
 
     <div id="screen-premium" class="screen">
-        <h2 class="page-header">PREMIUM PAGE</h2>
-        <div class="premium-card main-prem">
-            <h3>PRX PREMIUM</h3>
-            <p class="sub-prem">Безлимитные проверки</p>
-            <button class="grey-btn">ОФОРМИТЬ</button>
+        <h2 class="page-header">STORE</h2>
+        
+        <div class="offer-grid">
+            <div class="offer-card featured" onclick="tg.showAlert('Payment logic coming soon')">
+                <div class="badge-best">BEST VALUE</div>
+                <div class="offer-title">HYPE PACK</div>
+                <div class="offer-desc">5 Проверок + Приоритет</div>
+                <div class="offer-price">2000 Stars</div>
+                <button class="btn-buy primary">КУПИТЬ ПАК</button>
+            </div>
+
+            <div class="offer-card" onclick="tg.showAlert('Payment logic coming soon')">
+                <div class="offer-title">SOLO CHECK</div>
+                <div class="offer-desc">Разовая проверка вещи</div>
+                <div class="offer-price">500 Stars</div>
+                <button class="btn-buy secondary">КУПИТЬ РАЗОВУЮ</button>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; color: #666; font-size: 12px;">
+            <p>Кредиты не сгорают.</p>
+            <p>Возврат средств в случае ошибки эксперта.</p>
         </div>
     </div>
 
@@ -154,7 +199,9 @@
         <div class="back-btn-top" onclick="goToScreen('screen-profile')"><i class="fas fa-chevron-left"></i></div>
         <h2 class="page-title" style="margin-top: 40px;">База Знаний</h2>
         <div class="info-box" style="max-width: none; text-align: left;">
-            <p>Подробная инструкция...</p>
+            <p><strong>1. Освещение</strong><br>Фотографируйте при дневном свете.</p>
+            <br>
+            <p><strong>2. Детали</strong><br>Нам важны швы, бирки и логотип крупным планом.</p>
         </div>
     </div>
 
