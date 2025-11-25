@@ -4,7 +4,7 @@ tg.expand();
 let currentCategory = "";
 let uploadedFiles = [];
 
-// 1. КАТЕГОРИИ
+// 1. SELECT CATEGORY
 function selectItem(element, categoryName) {
     document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('selected'));
     element.classList.add('selected');
@@ -20,7 +20,7 @@ function goToUploadIfSelected() {
     if (currentCategory) goToScreen('screen-upload');
 }
 
-// 2. ЗАГРУЗКА
+// 2. UPLOAD LOGIC
 function handleBulkUpload(input) {
     const files = Array.from(input.files);
     if (uploadedFiles.length + files.length > 10) {
@@ -59,7 +59,7 @@ function renderGallery() {
     }
 }
 
-// 3. НАВИГАЦИЯ
+// 3. NAVIGATION
 function switchTab(tabName) {
     document.querySelectorAll('.nav-icon').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
@@ -87,8 +87,7 @@ function goToScreen(screenId) {
     document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
 
-    // Показываем меню только на главных экранах
-    if (screenId === 'screen-home' || screenId === 'screen-profile' || screenId === 'screen-premium' || screenId === 'screen-history') {
+    if (['screen-home', 'screen-profile', 'screen-premium', 'screen-history'].includes(screenId)) {
         showNav(true);
     } else {
         showNav(false);
@@ -97,13 +96,12 @@ function goToScreen(screenId) {
 
 function showNav(visible) { document.getElementById('main-nav').style.display = visible ? 'flex' : 'none'; }
 
-// 4. ОТПРАВКА (ПОКА ЗАГЛУШКА БЕЗ СЕРВЕРА)
+// 4. MOCK PAYMENT
 async function processPayment() {
     if (uploadedFiles.length < 6) {
         tg.showAlert("Минимум 6 фото!");
         return;
     }
-    // Здесь будет код отправки на сервер
     goToScreen('screen-success');
 }
 

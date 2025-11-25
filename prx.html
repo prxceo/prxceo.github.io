@@ -53,7 +53,6 @@
                         <div class="status-dot"></div>
                         <span>148 Online • 1,205 Members</span>
                     </div>
-                    <div style="font-size: 9px; color: #666; margin-top: 2px;">Дата основания: сент. 2025</div>
                 </div>
             </div>
         </div>
@@ -68,7 +67,6 @@
                 <div class="brand-text">CHROME HEARTS</div>
             </div>
         </div>
-
     </div>
 
     <div id="screen-start-check" class="screen center-content">
@@ -109,10 +107,9 @@
     </div>
 
     <div id="screen-success" class="screen center-content">
-        <div class="prx-logo-text" style="font-size: 32px;">PRX</div>
+        <div class="home-logo-text">PRX</div>
         <h2 class="success-title">SUCCESS</h2>
         <p class="success-text">Заявка отправлена.</p>
-        <p class="queue-text">Место в очереди: 23</p>
         <button class="outline-btn" onclick="finishFlow()">В меню</button>
     </div>
 
@@ -136,14 +133,14 @@
     <div id="screen-premium" class="screen">
         <h2 class="page-header">STORE</h2>
         <div class="offer-grid">
-            <div class="offer-card featured" onclick="tg.showAlert('Payment logic coming soon')">
+            <div class="offer-card featured" onclick="tg.showAlert('Coming soon')">
                 <div class="badge-best">BEST VALUE</div>
                 <div class="offer-title">HYPE PACK</div>
                 <div class="offer-desc">5 Проверок</div>
                 <div class="offer-price">2000 Stars</div>
                 <button class="btn-buy primary">КУПИТЬ ПАК</button>
             </div>
-            <div class="offer-card" onclick="tg.showAlert('Payment logic coming soon')">
+            <div class="offer-card" onclick="tg.showAlert('Coming soon')">
                 <div class="offer-title">SOLO CHECK</div>
                 <div class="offer-desc">Разовая проверка</div>
                 <div class="offer-price">500 Stars</div>
@@ -170,25 +167,19 @@
         <h2 class="page-title" style="margin-top: 40px;">Настройки</h2>
         <div class="settings-list">
             <div class="setting-item"><span>Язык</span><span class="setting-val">Русский <i class="fas fa-chevron-right"></i></span></div>
-            <div class="setting-item"><span>Валюта</span><span class="setting-val">Stars <i class="fas fa-chevron-right"></i></span></div>
         </div>
     </div>
 
     <div id="screen-support" class="screen">
         <div class="back-btn-top" onclick="goToScreen('screen-profile')"><i class="fas fa-chevron-left"></i></div>
         <h2 class="page-title" style="margin-top: 40px;">Поддержка</h2>
-        <div class="info-box" style="text-align: left; max-width: none;">
-            <div class="faq-item"><div class="faq-q">Срок проверки?</div><div class="faq-a">15-30 минут.</div></div>
-        </div>
-        <button class="contact-btn"><i class="fab fa-telegram-plane"></i> Связаться с агентом</button>
+        <div class="info-box"><p>Срок проверки: 15-30 минут.</p></div>
     </div>
 
     <div id="screen-full-instruction" class="screen">
         <div class="back-btn-top" onclick="goToScreen('screen-profile')"><i class="fas fa-chevron-left"></i></div>
         <h2 class="page-title" style="margin-top: 40px;">База Знаний</h2>
-        <div class="info-box" style="max-width: none; text-align: left;">
-            <p><strong>1. Свет</strong><br>Только дневное освещение.</p>
-        </div>
+        <div class="info-box"><p>Инструкция по фото...</p></div>
     </div>
 
     <div class="bottom-nav" id="main-nav">
