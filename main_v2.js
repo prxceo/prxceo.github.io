@@ -2,55 +2,38 @@ const tg = window.Telegram.WebApp;
 tg.expand();
 
 let currentCategory = "";
-let uploadedFiles = []; // Храним файлы здесь
+let uploadedFiles = [];
 
-// --- 1. КАТЕГОРИИ ---
-
+// 1. КАТЕГОРИИ
 function selectItem(element, categoryName) {
-    // 1. Убираем выделение со всех
     document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('selected'));
-    
-    // 2. Выделяем текущий
     element.classList.add('selected');
     currentCategory = categoryName;
 
-    // 3. Активируем кнопку "Далее" (Стрелку)
     const nextBtn = document.getElementById('cat-next-btn');
     nextBtn.classList.remove('disabled');
     nextBtn.classList.add('active');
-    
-    // Haptic
     tg.HapticFeedback.impactOccurred('light');
 }
 
 function goToUploadIfSelected() {
-    if (currentCategory) {
-        goToScreen('screen-upload');
-    }
+    if (currentCategory) goToScreen('screen-upload');
 }
 
-// --- 2. ЗАГРУЗКА ФОТО (BULK) ---
-
+// 2. ЗАГРУЗКА
 function handleBulkUpload(input) {
     const files = Array.from(input.files);
-    
-    // Проверка: не больше 10 фото всего
     if (uploadedFiles.length + files.length > 10) {
         tg.showAlert("Максимум 10 фотографий!");
         return;
     }
-
-    // Добавляем файлы в массив
     uploadedFiles = uploadedFiles.concat(files);
-    
     renderGallery();
 }
 
 function renderGallery() {
     const gallery = document.getElementById('photo-gallery');
-    gallery.innerHTML = ""; // Очищаем
-
-    // Рисуем превью
+    gallery.innerHTML = "";
     uploadedFiles.forEach(file => {
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -61,26 +44,22 @@ function renderGallery() {
         }
         reader.readAsDataURL(file);
     });
-
-    // Обновляем счетчик
+    
     const count = uploadedFiles.length;
     const counterText = document.getElementById('photo-counter');
     counterText.innerText = `Загружено: ${count}/10`;
 
-    // Логика кнопки оплаты (Мин 6, Макс 10)
     const payBtn = document.getElementById('pay-btn');
     if (count >= 6 && count <= 10) {
         payBtn.classList.remove('disabled');
-        counterText.style.color = '#30d158'; // Зеленый
+        counterText.style.color = '#30d158';
     } else {
         payBtn.classList.add('disabled');
-        if (count > 10) counterText.style.color = 'red';
-        else counterText.style.color = '#666';
+        counterText.style.color = count > 10 ? 'red' : '#666';
     }
 }
 
-// --- 3. СТАНДАРТНАЯ НАВИГАЦИЯ ---
-
+// 3. НАВИГАЦИЯ
 function switchTab(tabName) {
     document.querySelectorAll('.nav-icon').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
@@ -88,18 +67,19 @@ function switchTab(tabName) {
     if (tabName === 'home') {
         document.getElementById('screen-home').classList.add('active');
         document.querySelectorAll('.nav-icon')[1].classList.add('active');
-        showNav(true); showHeader(true);
+        showNav(true);
     } else if (tabName === 'profile') {
         document.getElementById('screen-profile').classList.add('active');
         document.querySelectorAll('.nav-icon')[0].classList.add('active');
-        showNav(true); showHeader(false);
+        showNav(true);
     } else if (tabName === 'premium') {
         document.getElementById('screen-premium').classList.add('active');
         document.querySelectorAll('.nav-icon')[3].classList.add('active');
-        showNav(true); showHeader(false);
+        showNav(true);
     } else if (tabName === 'history') {
-        tg.showAlert("История пуста");
-        switchTab('home'); 
+        document.getElementById('screen-history').classList.add('active');
+        document.querySelectorAll('.nav-icon')[2].classList.add('active');
+        showNav(true);
     }
 }
 
@@ -107,39 +87,34 @@ function goToScreen(screenId) {
     document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
 
-    if (screenId === 'screen-home' || screenId === 'screen-profile' || screenId === 'screen-premium') {
+    // Показываем меню только на главных экранах
+    if (screenId === 'screen-home' || screenId === 'screen-profile' || screenId === 'screen-premium' || screenId === 'screen-history') {
         showNav(true);
     } else {
         showNav(false);
     }
-    
-    if (screenId === 'screen-home') showHeader(true);
-    else showHeader(false);
 }
 
 function showNav(visible) { document.getElementById('main-nav').style.display = visible ? 'flex' : 'none'; }
-function showHeader(visible) { 
-    const h = document.getElementById('main-header'); 
-    if(h) h.style.display = visible ? 'block' : 'none'; 
-}
 
-function processPayment() {
+// 4. ОТПРАВКА (ПОКА ЗАГЛУШКА БЕЗ СЕРВЕРА)
+async function processPayment() {
     if (uploadedFiles.length < 6) {
         tg.showAlert("Минимум 6 фото!");
         return;
     }
+    // Здесь будет код отправки на сервер
     goToScreen('screen-success');
 }
 
 function finishFlow() {
-    // Сброс данных после успеха
     uploadedFiles = [];
     currentCategory = "";
     document.getElementById('photo-gallery').innerHTML = "";
+    document.getElementById('photo-counter').innerText = "Загружено: 0/10";
     document.getElementById('cat-next-btn').classList.add('disabled');
     document.getElementById('cat-next-btn').classList.remove('active');
     document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('selected'));
-    
     switchTab('home');
 }
 

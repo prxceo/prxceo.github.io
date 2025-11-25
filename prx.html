@@ -10,52 +10,65 @@
 </head>
 <body>
 
-    <div class="app-header" id="main-header">
-        <div class="prx-logo-text">PRX</div>
-    </div>
-
     <div id="screen-home" class="screen active">
         
-        <div class="news-section">
-            <div class="section-label">FASHION WEEK</div>
+        <div class="home-logo-container">
+            <div class="home-logo-text">PRX</div>
+        </div>
+        <div class="welcome-msg">Добро пожаловать, User777!</div>
+
+        <button class="outline-btn start-btn" onclick="goToScreen('screen-start-check')">НАЧАТЬ ПРОВЕРКУ</button>
+
+        <div class="news-section" style="margin-top: 30px;">
+            <div class="section-label">FASHION NEWS</div>
             <div class="news-carousel">
                 <div class="news-card">
-                    <img src="https://source.unsplash.com/random/300x300?runway" alt="News 1">
+                    <img src="https://source.unsplash.com/random/300x300?fashion" alt="News 1">
                     <div class="news-text">
-                        <span>TRENDS</span>
-                        <p>Paris Fashion Week Recap.</p>
+                        <span>WEEKLY</span>
+                        <p>Paris Fashion Week Highlights</p>
                     </div>
                 </div>
                 <div class="news-card">
                     <img src="https://source.unsplash.com/random/300x300?sneakers" alt="News 2">
                     <div class="news-text">
                         <span>DROP</span>
-                        <p>New Nike x Travis Scott release date.</p>
+                        <p>Travis Scott x Jordan Release</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <button class="outline-btn start-btn" onclick="goToScreen('screen-start-check')">НАЧАТЬ ПРОВЕРКУ</button>
-
-        <div class="community-section">
-            <div class="section-label">COMMUNITY</div>
-            
-            <div class="discord-btn" onclick="tg.openLink('https://discord.gg/yourlink')">
-                <div style="text-align: left;">
-                    <div style="font-weight: bold; font-size: 16px;">PRX CLUB</div>
-                    <div style="font-size: 10px; opacity: 0.8;">Чат, разборы, маркет</div>
-                </div>
-                <i class="fab fa-discord" style="font-size: 24px;"></i>
+        <div class="discord-widget" onclick="tg.openLink('https://discord.gg/yourlink')">
+            <div class="discord-header">
+                <i class="fab fa-discord" style="font-size: 30px; color: white;"></i>
+                <span class="discord-title">DISCORD</span>
             </div>
-
-            <div class="marketplace-teaser" onclick="tg.showAlert('Coming Q3 2025')">
-                <i class="fas fa-store"></i>
-                <div style="font-weight: bold; font-size: 14px;">PRX MARKET</div>
-                <div style="font-size: 10px;">Buy & Sell Verified Items</div>
-                <div style="font-size: 10px; margin-top: 5px; color: #888;">Скоро</div>
+            
+            <div class="discord-card-inner">
+                <div class="discord-icon-box">PRX</div>
+                <div class="discord-info">
+                    <div class="discord-server-name">PRX Community</div>
+                    <div class="discord-stats">
+                        <div class="status-dot"></div>
+                        <span>148 Online • 1,205 Members</span>
+                    </div>
+                    <div style="font-size: 9px; color: #666; margin-top: 2px;">Дата основания: сент. 2025</div>
+                </div>
             </div>
         </div>
+
+        <div class="brands-footer">
+            <div class="brands-grid">
+                <div class="brand-text">RICK OWENS</div>
+                <div class="brand-text">BALENCIAGA</div>
+                <div class="brand-text">VETEMENTS</div>
+                <div class="brand-text">LOUIS VUITTON</div>
+                <div class="brand-text">MAISON MARGIELA</div>
+                <div class="brand-text">CHROME HEARTS</div>
+            </div>
+        </div>
+
     </div>
 
     <div id="screen-start-check" class="screen center-content">
@@ -63,145 +76,118 @@
         <div class="info-box">
             <h3>Как это работает:</h3>
             <p>1. Выбери категорию вещи.</p>
-            <p>2. Загрузи от 6 до 10 фотографий (Бирки, швы, логотип).</p>
+            <p>2. Загрузи фото (Бирки, швы, лого).</p>
             <p>3. Оплати проверку.</p>
-            <div class="info-footer">Вердикт придет в этот чат.</div>
         </div>
         <button class="outline-btn" onclick="goToScreen('screen-category')">Выбрать вещь</button>
     </div>
 
     <div id="screen-category" class="screen">
         <div class="back-btn-top" onclick="goToScreen('screen-start-check')"><i class="fas fa-chevron-left"></i></div>
-        
         <h2 class="page-title category-title">Выбери тип вещи</h2>
-        
         <div class="category-grid">
-            <div class="cat-item" onclick="selectItem(this, 'Sneakers')">
-                <i class="fas fa-shoe-prints"></i>
-                <span class="cat-label">Sneakers</span>
-            </div>
-            <div class="cat-item" onclick="selectItem(this, 'Hoodie')">
-                <i class="fas fa-vest"></i>
-                <span class="cat-label">Hoodie</span>
-            </div>
-            <div class="cat-item" onclick="selectItem(this, 'TShirt')">
-                <i class="fas fa-shirt"></i>
-                <span class="cat-label">T-Shirt</span>
-            </div>
-            <div class="cat-item" onclick="selectItem(this, 'Cap')">
-                <i class="fas fa-hat-baseball"></i>
-                <span class="cat-label">Cap</span>
-            </div>
-            <div class="cat-item" onclick="selectItem(this, 'Pants')">
-                <i class="fas fa-person-running"></i>
-                <span class="cat-label">Pants</span>
-            </div>
-            <div class="cat-item" onclick="selectItem(this, 'Glasses')">
-                <i class="fas fa-glasses"></i>
-                <span class="cat-label">Accessory</span>
-            </div>
+            <div class="cat-item" onclick="selectItem(this, 'Sneakers')"><i class="fas fa-shoe-prints"></i><span class="cat-label">Sneakers</span></div>
+            <div class="cat-item" onclick="selectItem(this, 'Hoodie')"><i class="fas fa-vest"></i><span class="cat-label">Hoodie</span></div>
+            <div class="cat-item" onclick="selectItem(this, 'TShirt')"><i class="fas fa-shirt"></i><span class="cat-label">T-Shirt</span></div>
+            <div class="cat-item" onclick="selectItem(this, 'Cap')"><i class="fas fa-hat-baseball"></i><span class="cat-label">Cap</span></div>
+            <div class="cat-item" onclick="selectItem(this, 'Pants')"><i class="fas fa-person-running"></i><span class="cat-label">Pants</span></div>
+            <div class="cat-item" onclick="selectItem(this, 'Glasses')"><i class="fas fa-glasses"></i><span class="cat-label">Accessory</span></div>
         </div>
-
-        <div class="cat-item other-btn" onclick="selectItem(this, 'Other')">
-            <span>Другое</span>
-        </div>
-        
-        <div class="next-arrow disabled" id="cat-next-btn" onclick="goToUploadIfSelected()">
-            <i class="fas fa-angle-double-right"></i>
-        </div>
+        <div class="cat-item other-btn" onclick="selectItem(this, 'Other')"><span>Другое</span></div>
+        <div class="next-arrow disabled" id="cat-next-btn" onclick="goToUploadIfSelected()"><i class="fas fa-angle-double-right"></i></div>
     </div>
 
     <div id="screen-upload" class="screen">
         <div class="back-btn-top" onclick="goToScreen('screen-category')"><i class="fas fa-chevron-left"></i></div>
         <h2 class="page-title category-title">Загрузка фото</h2>
-        
-        <p class="upload-hint">Загрузите от 6 до 10 фото.<br>Обязательно: Бирки, Швы, Лого.</p>
-
-        <div class="photo-gallery" id="photo-gallery">
-            </div>
-
-        <div class="big-upload-btn" onclick="document.getElementById('file-input-bulk').click()">
-            <i class="fas fa-camera"></i>
-            <span>Добавить фото</span>
-        </div>
-        
+        <p class="upload-hint">Загрузите от 6 до 10 фото.</p>
+        <div class="photo-gallery" id="photo-gallery"></div>
+        <div class="big-upload-btn" onclick="document.getElementById('file-input-bulk').click()"><i class="fas fa-camera"></i><span>Добавить фото</span></div>
         <input type="file" id="file-input-bulk" multiple accept="image/*" hidden onchange="handleBulkUpload(this)">
-
         <div class="counter-text" id="photo-counter">Загружено: 0/10</div>
-
         <button class="outline-btn pay-btn disabled" id="pay-btn" onclick="processPayment()">Оплатить</button>
     </div>
 
     <div id="screen-success" class="screen center-content">
-        <div class="prx-logo-text">PRX</div>
+        <div class="prx-logo-text" style="font-size: 32px;">PRX</div>
         <h2 class="success-title">SUCCESS</h2>
-        <p class="success-text">ИИ + Специалист проверят ваш товар.</p>
-        <p class="queue-text">Ваше место в очереди: 23</p>
-        <button class="outline-btn" onclick="finishFlow()">Готово</button>
+        <p class="success-text">Заявка отправлена.</p>
+        <p class="queue-text">Место в очереди: 23</p>
+        <button class="outline-btn" onclick="finishFlow()">В меню</button>
     </div>
 
     <div id="screen-profile" class="screen">
         <div class="profile-card">
             <div class="avatar"><i class="far fa-user"></i></div>
-            <h3>Loading...</h3>
+            <h3>User #777</h3>
             <span class="badge">Free User</span>
         </div>
         <div class="stats-container">
-            <div class="stat-box">
-                <span class="stat-num">2</span>
-                <span class="stat-label">Проверок</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-num">0</span>
-                <span class="stat-label">Бонусы</span>
-            </div>
+            <div class="stat-box"><span class="stat-num">2</span><span class="stat-label">Проверок</span></div>
+            <div class="stat-box"><span class="stat-num">0</span><span class="stat-label">Бонусы</span></div>
         </div>
         <div class="profile-menu-list">
-            <div class="menu-btn" onclick="goToScreen('screen-full-instruction')">
-                <i class="fas fa-book-open"></i><span>Инструкция</span>
-            </div>
-            <div class="menu-btn" onclick="tg.showAlert('В разработке')">
-                <i class="far fa-question-circle"></i><span>Поддержка</span>
-            </div>
-            <div class="menu-btn" onclick="tg.showAlert('В разработке')">
-                <i class="fas fa-cog"></i><span>Настройки</span>
-            </div>
+            <div class="menu-btn" onclick="goToScreen('screen-full-instruction')"><i class="fas fa-book-open"></i><span>Инструкция</span></div>
+            <div class="menu-btn" onclick="goToScreen('screen-support')"><i class="far fa-question-circle"></i><span>Поддержка</span></div>
+            <div class="menu-btn" onclick="goToScreen('screen-settings')"><i class="fas fa-cog"></i><span>Настройки</span></div>
         </div>
     </div>
 
     <div id="screen-premium" class="screen">
         <h2 class="page-header">STORE</h2>
-        
         <div class="offer-grid">
             <div class="offer-card featured" onclick="tg.showAlert('Payment logic coming soon')">
                 <div class="badge-best">BEST VALUE</div>
                 <div class="offer-title">HYPE PACK</div>
-                <div class="offer-desc">5 Проверок + Приоритет</div>
+                <div class="offer-desc">5 Проверок</div>
                 <div class="offer-price">2000 Stars</div>
                 <button class="btn-buy primary">КУПИТЬ ПАК</button>
             </div>
-
             <div class="offer-card" onclick="tg.showAlert('Payment logic coming soon')">
                 <div class="offer-title">SOLO CHECK</div>
-                <div class="offer-desc">Разовая проверка вещи</div>
+                <div class="offer-desc">Разовая проверка</div>
                 <div class="offer-price">500 Stars</div>
                 <button class="btn-buy secondary">КУПИТЬ РАЗОВУЮ</button>
             </div>
         </div>
+    </div>
 
-        <div style="text-align: center; margin-top: 30px; color: #666; font-size: 12px;">
-            <p>Кредиты не сгорают.</p>
-            <p>Возврат средств в случае ошибки эксперта.</p>
+    <div id="screen-history" class="screen">
+        <h2 class="page-header">История</h2>
+        <div class="history-list">
+            <div class="history-card">
+                <div class="h-left">
+                    <div class="h-icon-box"><i class="fas fa-shoe-prints"></i></div>
+                    <div class="h-info"><h4>Travis Scott Low</h4><p>ID: #8392 • Сегодня</p></div>
+                </div>
+                <div class="h-status status-wait">CHECKING</div>
+            </div>
         </div>
+    </div>
+
+    <div id="screen-settings" class="screen">
+        <div class="back-btn-top" onclick="goToScreen('screen-profile')"><i class="fas fa-chevron-left"></i></div>
+        <h2 class="page-title" style="margin-top: 40px;">Настройки</h2>
+        <div class="settings-list">
+            <div class="setting-item"><span>Язык</span><span class="setting-val">Русский <i class="fas fa-chevron-right"></i></span></div>
+            <div class="setting-item"><span>Валюта</span><span class="setting-val">Stars <i class="fas fa-chevron-right"></i></span></div>
+        </div>
+    </div>
+
+    <div id="screen-support" class="screen">
+        <div class="back-btn-top" onclick="goToScreen('screen-profile')"><i class="fas fa-chevron-left"></i></div>
+        <h2 class="page-title" style="margin-top: 40px;">Поддержка</h2>
+        <div class="info-box" style="text-align: left; max-width: none;">
+            <div class="faq-item"><div class="faq-q">Срок проверки?</div><div class="faq-a">15-30 минут.</div></div>
+        </div>
+        <button class="contact-btn"><i class="fab fa-telegram-plane"></i> Связаться с агентом</button>
     </div>
 
     <div id="screen-full-instruction" class="screen">
         <div class="back-btn-top" onclick="goToScreen('screen-profile')"><i class="fas fa-chevron-left"></i></div>
         <h2 class="page-title" style="margin-top: 40px;">База Знаний</h2>
         <div class="info-box" style="max-width: none; text-align: left;">
-            <p><strong>1. Освещение</strong><br>Фотографируйте при дневном свете.</p>
-            <br>
-            <p><strong>2. Детали</strong><br>Нам важны швы, бирки и логотип крупным планом.</p>
+            <p><strong>1. Свет</strong><br>Только дневное освещение.</p>
         </div>
     </div>
 
