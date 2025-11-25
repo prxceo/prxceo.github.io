@@ -4,36 +4,54 @@ tg.expand();
 let currentCategory = "";
 let uploadedFiles = [];
 
-// 1. SELECT CATEGORY
+// --- 1. ЛОГИКА ВЫБОРА КАТЕГОРИИ ---
+
 function selectItem(element, categoryName) {
+    // Сбрасываем выделение со всех
     document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('selected'));
+    
+    // Выделяем текущий
     element.classList.add('selected');
     currentCategory = categoryName;
 
+    // Активируем кнопку "Далее"
     const nextBtn = document.getElementById('cat-next-btn');
-    nextBtn.classList.remove('disabled');
-    nextBtn.classList.add('active');
-    tg.HapticFeedback.impactOccurred('light');
+    if (nextBtn) {
+        nextBtn.classList.remove('disabled');
+        nextBtn.classList.add('active');
+    }
+    
+    // Легкая вибрация
+    if (tg.HapticFeedback) {
+        tg.HapticFeedback.impactOccurred('light');
+    }
 }
 
 function goToUploadIfSelected() {
-    if (currentCategory) goToScreen('screen-upload');
+    if (currentCategory) {
+        goToScreen('screen-upload');
+    }
 }
 
-// 2. UPLOAD LOGIC
+// --- 2. ЛОГИКА ЗАГРУЗКИ ФОТО (BULK) ---
+
 function handleBulkUpload(input) {
     const files = Array.from(input.files);
+    
+    // Лимит 10 фото
     if (uploadedFiles.length + files.length > 10) {
         tg.showAlert("Максимум 10 фотографий!");
         return;
     }
+
     uploadedFiles = uploadedFiles.concat(files);
     renderGallery();
 }
 
 function renderGallery() {
     const gallery = document.getElementById('photo-gallery');
-    gallery.innerHTML = "";
+    gallery.innerHTML = ""; // Очищаем
+
     uploadedFiles.forEach(file => {
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -44,26 +62,39 @@ function renderGallery() {
         }
         reader.readAsDataURL(file);
     });
-    
+
+    // Обновляем счетчик
     const count = uploadedFiles.length;
     const counterText = document.getElementById('photo-counter');
-    counterText.innerText = `Загружено: ${count}/10`;
+    if (counterText) {
+        counterText.innerText = `Загружено: ${count}/10`;
+    
+        // Меняем цвет текста
+        if (count > 10) counterText.style.color = 'red';
+        else if (count >= 6) counterText.style.color = '#30d158'; // Зеленый
+        else counterText.style.color = '#666';
+    }
 
+    // Активация кнопки оплаты (Мин 6 фото)
     const payBtn = document.getElementById('pay-btn');
-    if (count >= 6 && count <= 10) {
-        payBtn.classList.remove('disabled');
-        counterText.style.color = '#30d158';
-    } else {
-        payBtn.classList.add('disabled');
-        counterText.style.color = count > 10 ? 'red' : '#666';
+    if (payBtn) {
+        if (count >= 6 && count <= 10) {
+            payBtn.classList.remove('disabled');
+        } else {
+            payBtn.classList.add('disabled');
+        }
     }
 }
 
-// 3. NAVIGATION
+// --- 3. НАВИГАЦИЯ ---
+
 function switchTab(tabName) {
+    // Сброс стилей иконок
     document.querySelectorAll('.nav-icon').forEach(el => el.classList.remove('active'));
+    // Скрываем все экраны
     document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
 
+    // Логика переключения
     if (tabName === 'home') {
         document.getElementById('screen-home').classList.add('active');
         document.querySelectorAll('.nav-icon')[1].classList.add('active');
@@ -81,39 +112,67 @@ function switchTab(tabName) {
         document.querySelectorAll('.nav-icon')[2].classList.add('active');
         showNav(true);
     }
+    
+    if (tg.HapticFeedback) {
+        tg.HapticFeedback.selectionChanged();
+    }
 }
 
 function goToScreen(screenId) {
     document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
-    document.getElementById(screenId).classList.add('active');
+    const target = document.getElementById(screenId);
+    if (target) target.classList.add('active');
 
-    if (['screen-home', 'screen-profile', 'screen-premium', 'screen-history'].includes(screenId)) {
+    // Нижнее меню показываем только на главных экранах
+    const mainScreens = ['screen-home', 'screen-profile', 'screen-premium', 'screen-history'];
+    if (mainScreens.includes(screenId)) {
         showNav(true);
     } else {
         showNav(false);
     }
 }
 
-function showNav(visible) { document.getElementById('main-nav').style.display = visible ? 'flex' : 'none'; }
+function showNav(visible) {
+    const nav = document.getElementById('main-nav');
+    if (nav) nav.style.display = visible ? 'flex' : 'none';
+}
 
-// 4. MOCK PAYMENT
-async function processPayment() {
+// --- 4. ОТПРАВКА / ОПЛАТА ---
+
+function processPayment() {
     if (uploadedFiles.length < 6) {
         tg.showAlert("Минимум 6 фото!");
         return;
     }
+    // Пока просто переход на успех (Бэкенд подключим позже)
     goToScreen('screen-success');
+    
+    if (tg.HapticFeedback) {
+        tg.HapticFeedback.notificationOccurred('success');
+    }
 }
 
 function finishFlow() {
+    // Сброс данных
     uploadedFiles = [];
     currentCategory = "";
-    document.getElementById('photo-gallery').innerHTML = "";
-    document.getElementById('photo-counter').innerText = "Загружено: 0/10";
-    document.getElementById('cat-next-btn').classList.add('disabled');
-    document.getElementById('cat-next-btn').classList.remove('active');
+    
+    const gallery = document.getElementById('photo-gallery');
+    if (gallery) gallery.innerHTML = "";
+    
+    const counter = document.getElementById('photo-counter');
+    if (counter) counter.innerText = "Загружено: 0/10";
+    
+    // Сброс кнопок категорий
+    const nextBtn = document.getElementById('cat-next-btn');
+    if (nextBtn) {
+        nextBtn.classList.add('disabled');
+        nextBtn.classList.remove('active');
+    }
     document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('selected'));
+    
     switchTab('home');
 }
 
+// Запуск приложения
 switchTab('home');
